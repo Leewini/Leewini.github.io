@@ -1,40 +1,331 @@
-extends base
+<!DOCTYPE html>
+<html lang="en">
 
-block title
-  title= page.title + " | " + config.title
+<!-- Head tag -->
+<head>
 
-block main
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  // gallery that comes before the header
-  if page.photos
-     if page.photos.length
-      .article-gallery
-        .article-gallery-photos.container
-          for photo in page.photos
-            a.article-gallery-img.fancybox(href=url_for(photo), rel="gallery_" + page._id)
-              img(src=url_for(photo), itemprop="image")
+    <!--Description-->
+    
+        <meta name="description" content="一、前言Associated Objects(关联对象)是什么？什么时候用？为什么要用？怎么用？最开始用到关联对象是源于一个需求（废话，肯定是源于需求）。大家都知道，Button的点击事件，一定是将本身传入参数：12345678910- (void)setupFoundationUI &amp;#123;U">
+    
 
-  .wrapper
-    .container.post-header
-      h1: = page.title
+    <!--Author-->
+    
+        <meta name="author" content="Leewin">
+    
 
-  .wrapper
-    .container.meta
-      .post-time= page.date.format(config.date_format)
-      if (page.categories && page.categories.length)
-        .post-categories
-          != list_categories(page.categories, {show_count: false, class: 'post-category', style: 'none', separator: '>'})
-      if (page.tags && page.tags.length)
-        .post-tags
-          != list_tags(page.tags, {show_count: false, class: 'post-tag', style:'none', separator:'/'})
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS开发-关于Associated Objects"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Welcome"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS开发-关于Associated Objects - Welcome</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
 
 
-  article
-    .container.post
-      != page.content
+    <!-- favicon -->
+    
+	
+</head>
 
-    // comment system
-    .container
-      hr
-      include _partial/comments
 
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Leewin's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/Leewini">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>iOS开发-关于Associated Objects</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-02-04
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>Associated Objects(关联对象)是什么？什么时候用？为什么要用？怎么用？<br>最开始用到关联对象是源于一个需求（废话，肯定是源于需求）。<br>大家都知道，Button的点击事件，一定是将本身传入参数：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setupFoundationUI &#123;</span><br><span class="line"><span class="built_in">UIButton</span> *btn = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeSystem</span>];</span><br><span class="line">btn.frame = (<span class="built_in">CGRect</span>)&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">30</span>, <span class="number">30</span>&#125;;</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:btn];</span><br><span class="line">[btn addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(btnDidClick:) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)btnDidClick:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"Btn did click ..."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果想要传入一个特定的参数呢？</p>
+<ul>
+<li>当时我想传的参数是整型，于是我想到了tag（那时的我还不知道关联对象）</li>
+<li>tag其实是用来标记不同的Button对象，但此时，我也很无奈。。。就先借用一下吧，哈哈<br>也就是这样👇👇👇<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setupFoundationUI &#123;</span><br><span class="line"><span class="built_in">UIButton</span> *btn = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeSystem</span>];</span><br><span class="line">btn.frame = (<span class="built_in">CGRect</span>)&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">30</span>, <span class="number">30</span>&#125;;</span><br><span class="line">btn.tag = <span class="number">110</span>;</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:btn];</span><br><span class="line">[btn addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(btnDidClick:) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)btnDidClick:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"Btn did click ...tag = %zd"</span>, sender.tag);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>后来又有需求，要传的参数是字符串，甚至是对象。。。<br>就在此时我注意到了关联对象（Associated Objects）</p>
+<h3 id="二、关联对象的介绍"><a href="#二、关联对象的介绍" class="headerlink" title="二、关联对象的介绍"></a>二、关联对象的介绍</h3><h4 id="1-关联对象解决的问题"><a href="#1-关联对象解决的问题" class="headerlink" title="1.关联对象解决的问题"></a>1.关联对象解决的问题</h4><p>我们知道，在 Objective-C 中可以通过 Category (类别、分类，反正你们懂得)给一个现有的类添加属性，但是却不能添加实例变量，这似乎成为了 Objective-C 的一个明显短板，关联对象就可以解决这个问题。</p>
+<h4 id="2-如何用关联对象"><a href="#2-如何用关联对象" class="headerlink" title="2.如何用关联对象"></a>2.如何用关联对象</h4><ul>
+<li><p>首先要引入 runtime</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;objc/runtime.h&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>API主要就是(来自系统文件runtime.h的介绍)👇👇👇</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* Sets an associated value for a given object using a given key and association policy.</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* @param object The source object for the association.</span></span><br><span class="line"><span class="comment">* @param key The key for the association.</span></span><br><span class="line"><span class="comment">* @param value The value to associate with the key key for object. Pass nil to clear an existing association.</span></span><br><span class="line"><span class="comment">* @param policy The policy for the association. For possible values, see “Associative Object Behaviors.”</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* @see objc_setAssociatedObject</span></span><br><span class="line"><span class="comment">* @see objc_removeAssociatedObjects</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">OBJC_EXPORT <span class="keyword">void</span></span><br><span class="line">objc_setAssociatedObject(<span class="keyword">id</span> _Nonnull object, <span class="keyword">const</span> <span class="keyword">void</span> * _Nonnull key,</span><br><span class="line"><span class="keyword">id</span> _Nullable value, objc_AssociationPolicy policy)</span><br><span class="line">OBJC_AVAILABLE(<span class="number">10.6</span>, <span class="number">3.1</span>, <span class="number">9.0</span>, <span class="number">1.0</span>, <span class="number">2.0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* Returns the value associated with a given object for a given key.</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* @param object The source object for the association.</span></span><br><span class="line"><span class="comment">* @param key The key for the association.</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* @return The value associated with the key \e key for \e object.</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* @see objc_setAssociatedObject</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">OBJC_EXPORT <span class="keyword">id</span> _Nullable</span><br><span class="line">objc_getAssociatedObject(<span class="keyword">id</span> _Nonnull object, <span class="keyword">const</span> <span class="keyword">void</span> * _Nonnull key)</span><br><span class="line">OBJC_AVAILABLE(<span class="number">10.6</span>, <span class="number">3.1</span>, <span class="number">9.0</span>, <span class="number">1.0</span>, <span class="number">2.0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* Removes all associations for a given object.</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* @param object An object that maintains associated objects.</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* @note The main purpose of this function is to make it easy to return an object </span></span><br><span class="line"><span class="comment">*  to a "pristine state”. You should not use this function for general removal of</span></span><br><span class="line"><span class="comment">*  associations from objects, since it also removes associations that other clients</span></span><br><span class="line"><span class="comment">*  may have added to the object. Typically you should use \c objc_setAssociatedObject </span></span><br><span class="line"><span class="comment">*  with a nil value to clear an association.</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* @see objc_setAssociatedObject</span></span><br><span class="line"><span class="comment">* @see objc_getAssociatedObject</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">OBJC_EXPORT <span class="keyword">void</span></span><br><span class="line">objc_removeAssociatedObjects(<span class="keyword">id</span> _Nonnull object)</span><br><span class="line">OBJC_AVAILABLE(<span class="number">10.6</span>, <span class="number">3.1</span>, <span class="number">9.0</span>, <span class="number">1.0</span>, <span class="number">2.0</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>官方的解释已经很清晰了，就不过多解读了(绑定、获取、移除)，值得注意的一点是：<code>objc_removeAssociatedObjects</code>是移除一个对象的所有关联对象，将该对象恢复成“原始”状态，这样的操作风险太大，所以一般的做法是通过给 <code>objc_setAssociatedObject</code> 函数传入 nil 来移除某个已有的关联对象。如下这样👇👇👇<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;key, <span class="literal">nil</span>, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>关于key的问题</p>
+<blockquote>
+<ul>
+<li>声明 static char kAssociatedObjectKey; 使用 &amp;kAssociatedObjectKey 作为 key 值;</li>
+<li>声明 static void *kAssociatedObjectKey = &kAssociatedObjectKey; 使用 kAssociatedObjectKey 作为 key 值；</li>
+<li>用 selector ，使用 getter 方法的名称作为 key 值。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>关于policy(关联策略)的问题</p>
+</li>
+</ul>
+<blockquote>
+<p>OBJC_ASSOCIATION_ASSIGN<br>等价属性@property (assign) or @property (unsafe_unretained)<br>弱引用关联对象</p>
+</blockquote>
+<blockquote>
+<p>OBJC_ASSOCIATION_RETAIN_NONATOMIC<br>等价属性@property (strong, nonatomic)<br>强引用关联对象，且为非原子操作</p>
+</blockquote>
+<blockquote>
+<p>OBJC_ASSOCIATION_COPY_NONATOMIC<br>等价属性@property (copy, nonatomic)<br>复制关联对象，且为非原子操作</p>
+</blockquote>
+<blockquote>
+<p>OBJC_ASSOCIATION_RETAIN<br>等价属性@property (strong, atomic)<br>强引用关联对象，且为原子操作</p>
+</blockquote>
+<blockquote>
+<p>OBJC_ASSOCIATION_COPY<br>等价属性@property (copy, atomic)<br>复制关联对象，且为原子操作</p>
+</blockquote>
+<p>具体内容可以参考官方文档，这里就不copy了</p>
+<h3 id="三、用关联对象解决上述问题"><a href="#三、用关联对象解决上述问题" class="headerlink" title="三、用关联对象解决上述问题"></a>三、用关联对象解决上述问题</h3><ul>
+<li><p>传整型数据</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> kButtonKey = <span class="string">@"kButtonKey"</span>;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setupFoundationUI &#123;</span><br><span class="line"><span class="built_in">UIButton</span> *btn = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeSystem</span>];</span><br><span class="line">objc_setAssociatedObject(btn, &amp;kButtonKey, @<span class="number">110</span>, OBJC_ASSOCIATION_ASSIGN);</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:btn];</span><br><span class="line">[btn addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(btnDidClick:) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)btnDidClick:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line"><span class="built_in">NSInteger</span> value = [objc_getAssociatedObject(sender, &amp;kButtonKey) integerValue];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"btn did click ...value = %zd"</span>, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传对象数据</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> kButtonKey = <span class="string">@"kButtonKey"</span>;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setupFoundationUI &#123;</span><br><span class="line"><span class="built_in">UIButton</span> *btn = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeSystem</span>];</span><br><span class="line">btn.frame = (<span class="built_in">CGRect</span>)&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">30</span>, <span class="number">30</span>&#125;;</span><br><span class="line">Person *person = [[Person alloc] init];</span><br><span class="line">person.name = <span class="string">@"LiMing"</span>;</span><br><span class="line">objc_setAssociatedObject(btn, &amp;kButtonKey, person, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:btn];</span><br><span class="line">[btn addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(btnDidClick:) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)btnDidClick:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">Person *person = objc_getAssociatedObject(sender, &amp;kButtonKey);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"person`s name = %@"</span>, person.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="四、关联对象用于Category"><a href="#四、关联对象用于Category" class="headerlink" title="四、关联对象用于Category"></a>四、关联对象用于Category</h3><p>以实现UIBarButtonItem的扩展为例子，为其增加红点的功能，其中大量的使用了关联对象<br>需求：</p>
+<blockquote>
+<p>1.显示小红点<br>2.显示数字红点<br>3.即有小红点又有数字红点时，优先显示数字红点<br>4.可自定义红点颜色（默认是红色[UIColor redColor]）<br>5.数字红点数目大于99时，显示99+</p>
+</blockquote>
+<p>具体代码如下：👇👇👇<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIBarButtonItem</span> (<span class="title">Badge</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIColor</span> *badgeColor;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configBadgeWithBigNum:(<span class="built_in">NSInteger</span>)bigNum small:(<span class="built_in">BOOL</span>)isOn;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"UIBarButtonItem+Badge.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> ZYBarButtonItem_hasBadgeKey = <span class="string">@"ZYBarButtonItem_hasBadgeKey"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> ZYBarButtonItem_badgeKey = <span class="string">@"ZYBarButtonItem_badgeKey"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> ZYBarButtonItem_badgeSizeKey = <span class="string">@"ZYBarButtonItem_badgeSizeKey"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> ZYBarButtonItem_badgeOriginXKey = <span class="string">@"ZYBarButtonItem_badgeOriginXKey"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> ZYBarButtonItem_badgeOriginYKey = <span class="string">@"ZYBarButtonItem_badgeOriginYKey"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> ZYBarButtonItem_badgeColorKey = <span class="string">@"ZYBarButtonItem_badgeColorKey"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> ZYBarButtonItem_badgeSizeWKey = <span class="string">@"ZYBarButtonItem_badgeSizeWKey"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIBarButtonItem</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> badgeSizeW;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UILabel</span> *badge;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> badgeOriginX;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> badgeOriginY;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> badgeSize;</span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">BOOL</span> hasBadge;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIBarButtonItem</span> (<span class="title">Badge</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)initBadge &#123;</span><br><span class="line"><span class="built_in">UIView</span> *superview = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.customView) &#123;</span><br><span class="line">superview = <span class="keyword">self</span>.customView;</span><br><span class="line">superview.clipsToBounds = <span class="literal">NO</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> ([<span class="keyword">self</span> respondsToSelector:<span class="keyword">@selector</span>(view)] &amp;&amp; [(<span class="keyword">id</span>)<span class="keyword">self</span> view]) &#123;</span><br><span class="line">superview = [(<span class="keyword">id</span>)<span class="keyword">self</span> view];</span><br><span class="line">&#125;</span><br><span class="line">[superview addSubview:<span class="keyword">self</span>.badge];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认设置 default configure</span></span><br><span class="line"><span class="keyword">self</span>.badgeColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line"><span class="keyword">self</span>.badgeSize = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">self</span>.badgeSizeW = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">self</span>.badgeOriginX = <span class="number">28</span>;</span><br><span class="line"><span class="keyword">self</span>.badgeOriginY = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">self</span>.badge.hidden = <span class="literal">YES</span>;</span><br><span class="line"><span class="keyword">self</span>.badge.layer.masksToBounds = <span class="literal">YES</span>;</span><br><span class="line"><span class="keyword">self</span>.badge.font = [<span class="built_in">UIFont</span> boldSystemFontOfSize:<span class="number">12</span>];</span><br><span class="line"><span class="keyword">self</span>.badge.textAlignment = <span class="built_in">NSTextAlignmentCenter</span>;</span><br><span class="line"><span class="keyword">self</span>.badge.textColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)showBadge &#123;</span><br><span class="line"><span class="keyword">self</span>.badge.hidden = <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)hideBadge &#123;</span><br><span class="line"><span class="keyword">self</span>.badge.hidden = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)refreshBadge &#123;</span><br><span class="line"><span class="keyword">self</span>.badge.frame = (<span class="built_in">CGRect</span>)&#123;<span class="keyword">self</span>.badgeOriginX,<span class="keyword">self</span>.badgeOriginY,<span class="keyword">self</span>.badgeSizeW,<span class="keyword">self</span>.badgeSize&#125;;</span><br><span class="line"><span class="keyword">self</span>.badge.backgroundColor = <span class="keyword">self</span>.badgeColor;</span><br><span class="line"><span class="keyword">self</span>.badge.layer.cornerRadius = <span class="keyword">self</span>.badgeSize/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark ---------- badge getter &amp; setter function -----------</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UILabel</span> *)badge &#123;</span><br><span class="line"><span class="built_in">UILabel</span> *badge = (<span class="built_in">UILabel</span> *)objc_getAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeKey);</span><br><span class="line"><span class="keyword">if</span> (!badge) &#123;</span><br><span class="line">badge = [[<span class="built_in">UILabel</span> alloc] init];</span><br><span class="line">[<span class="keyword">self</span> setBadge:badge];</span><br><span class="line">[<span class="keyword">self</span> initBadge];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> badge;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setBadge:(<span class="built_in">UILabel</span> *)badge &#123;</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeKey, badge, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIColor</span> *)badgeColor &#123;</span><br><span class="line"><span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeColorKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setBadgeColor:(<span class="built_in">UIColor</span> *)badgeColor &#123;</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeColorKey, badgeColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.badge) &#123;</span><br><span class="line">[<span class="keyword">self</span> refreshBadge];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="built_in">CGFloat</span>)badgeSize &#123;</span><br><span class="line"><span class="built_in">NSNumber</span> *number = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeSizeKey);</span><br><span class="line"><span class="keyword">return</span> number.floatValue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)setBadgeSize:(<span class="built_in">CGFloat</span>)badgeSize &#123;</span><br><span class="line"><span class="built_in">NSNumber</span> *number = [<span class="built_in">NSNumber</span> numberWithDouble:badgeSize];</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeSizeKey, number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.badge) &#123;</span><br><span class="line">[<span class="keyword">self</span> refreshBadge];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CGFloat</span>)badgeSizeW &#123;</span><br><span class="line"><span class="built_in">NSNumber</span> *number = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeSizeWKey);</span><br><span class="line"><span class="keyword">return</span> number.floatValue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setBadgeSizeW:(<span class="built_in">CGFloat</span>)badgeSizeW &#123;</span><br><span class="line"><span class="built_in">NSNumber</span> *number = [<span class="built_in">NSNumber</span> numberWithDouble:badgeSizeW];</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeSizeWKey, number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.badge) &#123;</span><br><span class="line">[<span class="keyword">self</span> refreshBadge];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="built_in">CGFloat</span>)badgeOriginX &#123;</span><br><span class="line"><span class="built_in">NSNumber</span> *number = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeOriginXKey);</span><br><span class="line"><span class="keyword">return</span> number.floatValue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)setBadgeOriginX:(<span class="built_in">CGFloat</span>)badgeOriginX &#123;</span><br><span class="line"><span class="built_in">NSNumber</span> *number = [<span class="built_in">NSNumber</span> numberWithDouble:badgeOriginX];</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeOriginXKey, number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.badge) &#123;</span><br><span class="line">[<span class="keyword">self</span> refreshBadge];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="built_in">CGFloat</span>)badgeOriginY &#123;</span><br><span class="line"><span class="built_in">NSNumber</span> *number = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeOriginYKey);</span><br><span class="line"><span class="keyword">return</span> number.floatValue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)setBadgeOriginY:(<span class="built_in">CGFloat</span>)badgeOriginY &#123;</span><br><span class="line"><span class="built_in">NSNumber</span> *number = [<span class="built_in">NSNumber</span> numberWithDouble:badgeOriginY];</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_badgeOriginYKey, number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.badge) &#123;</span><br><span class="line">[<span class="keyword">self</span> refreshBadge];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setHasBadge:(<span class="built_in">BOOL</span>)hasBadge &#123;</span><br><span class="line"><span class="keyword">if</span> (hasBadge) &#123;</span><br><span class="line">[<span class="keyword">self</span> showBadge];</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">[<span class="keyword">self</span> hideBadge];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSNumber</span> *number = [<span class="built_in">NSNumber</span> numberWithBool:hasBadge];</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_hasBadgeKey, number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)hasBadge &#123;</span><br><span class="line"><span class="built_in">NSNumber</span> *number = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;ZYBarButtonItem_hasBadgeKey);</span><br><span class="line"><span class="keyword">return</span> number.boolValue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Public</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configBadgeWithBigNum:(<span class="built_in">NSInteger</span>)bigNum small:(<span class="built_in">BOOL</span>)isOn &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (bigNum &gt; <span class="number">0</span>) &#123;</span><br><span class="line"><span class="keyword">self</span>.hasBadge = <span class="literal">YES</span>;</span><br><span class="line"><span class="keyword">self</span>.badgeSize = <span class="number">18</span>;</span><br><span class="line"><span class="keyword">self</span>.badgeOriginY = <span class="number">6</span>;</span><br><span class="line"><span class="built_in">NSString</span> *numStr = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%zd"</span>, bigNum];</span><br><span class="line"><span class="keyword">if</span> (bigNum &lt; <span class="number">10</span>) &#123;</span><br><span class="line"><span class="keyword">self</span>.badgeSizeW = <span class="number">18</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (bigNum &lt; <span class="number">100</span>) &#123;</span><br><span class="line"><span class="keyword">self</span>.badgeSizeW = <span class="number">25</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="keyword">self</span>.badgeSizeW = <span class="number">30</span>;</span><br><span class="line">numStr = <span class="string">@"99+"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">self</span>.badge.text = numStr;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (isOn) &#123;</span><br><span class="line"><span class="keyword">self</span>.hasBadge = <span class="literal">YES</span>;</span><br><span class="line"><span class="keyword">self</span>.badgeSizeW = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">self</span>.badgeSize = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">self</span>.badgeOriginY = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">self</span>.badge.text = <span class="literal">nil</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="keyword">self</span>.hasBadge = <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h3 id="五、写在最后"><a href="#五、写在最后" class="headerlink" title="五、写在最后"></a>五、写在最后</h3><ul>
+<li>关联对象与被关联对象本身的存储并没有直接的关系，它是存储在单独的哈希表中的；</li>
+<li>关联对象的五种关联策略与属性的限定符非常类似，在绝大多数情况下，我们都会使用 <code>OBJC_ASSOCIATION_RETAIN_NONATOMIC</code> 的关联策略，这可以保证我们持有关联对象；</li>
+<li>关联对象的释放时机与移除时机并不总是一致，比如用关联策略 <code>OBJC_ASSOCIATION_ASSIGN</code> 进行关联的对象，很早就已经被释放了，但是并没有被移除，而再使用这个关联对象时就会造成 Crash 。<br><img src="http://upload-images.jianshu.io/upload_images/6544436-db0fc9959f867882.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Associated.jpg"></li>
+</ul>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/Leewini" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:mail://1043481495@qq.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 Leewin<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

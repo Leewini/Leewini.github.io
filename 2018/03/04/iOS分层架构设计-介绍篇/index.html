@@ -1,40 +1,310 @@
-extends base
+<!DOCTYPE html>
+<html lang="en">
 
-block title
-  title= page.title + " | " + config.title
+<!-- Head tag -->
+<head>
 
-block main
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  // gallery that comes before the header
-  if page.photos
-     if page.photos.length
-      .article-gallery
-        .article-gallery-photos.container
-          for photo in page.photos
-            a.article-gallery-img.fancybox(href=url_for(photo), rel="gallery_" + page._id)
-              img(src=url_for(photo), itemprop="image")
+    <!--Description-->
+    
+        <meta name="description" content="一、前言iOS的应用也需要架构设计吗？答案是肯定的，但是并不一定采用分层架构设计。一般情况下，有关信息处理的应用采用分层架构设计，而游戏等应用不会采用分层架构设计。
 
-  .wrapper
-    .container.post-header
-      h1: = page.title
-
-  .wrapper
-    .container.meta
-      .post-time= page.date.format(config.date_format)
-      if (page.categories && page.categories.length)
-        .post-categories
-          != list_categories(page.categories, {show_count: false, class: 'post-category', style: 'none', separator: '>'})
-      if (page.tags && page.tags.length)
-        .post-tags
-          != list_tags(page.tags, {show_count: false, class: 'post-tag', style:'none', separator:'/'})
+Tips：游戏开发一般都会采用某个引擎，游戏引擎事实上包含里架构设计解决方案，游戏引擎的架构一般不是分层的而是树形结构的。
 
 
-  article
-    .container.post
-      != page.content
+表示">
+    
 
-    // comment system
-    .container
-      hr
-      include _partial/comments
+    <!--Author-->
+    
+        <meta name="author" content="Leewin">
+    
 
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS分层架构设计-介绍篇"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Welcome"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS分层架构设计-介绍篇 - Welcome</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Leewin's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/Leewini">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>iOS分层架构设计-介绍篇</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-03-04
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>iOS的应用也需要架构设计吗？答案是肯定的，但是并不一定采用分层架构设计。一般情况下，有关信息处理的应用采用分层架构设计，而游戏等应用不会采用分层架构设计。</p>
+<blockquote>
+<p>Tips：游戏开发一般都会采用某个引擎，游戏引擎事实上包含里架构设计解决方案，游戏引擎的架构一般不是分层的而是树形结构的。</p>
+</blockquote>
+<ul>
+<li>表示层：它由UIKit Framework构成，包括视图、控制器、控件和事件处理等。</li>
+<li>业务逻辑层：框架的选取是根据业务而定，但一般是具有一定业务处理功能的编程语言封装的类或函数。</li>
+<li>数据持有层：提供本地和网络数据访问，它可能是访问SQLite数据的API函数，也可能是Core Data技术，或是访问文件的NSFileManager，或是网络通信技术。</li>
+<li>信息系统层：它的信息来源分为本地和网络。本地数据可以放入文件中，也可以放入数据库中，目前iOS本地数据库采用SQLite3。网络可以是某个云服务，也可以是一般的Web服务。</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-7245318f8bbcc8d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图1:分层架构设计图"></p>
+<h3 id="二、工程与工作空间"><a href="#二、工程与工作空间" class="headerlink" title="二、工程与工作空间"></a>二、工程与工作空间</h3><p>Xcode不仅可以创建工程（Project），还可以创建工作空间（Workspace）。出于方便管理等目的，我们可以将多个相互管理的工程放到一个工作空间中，工作空间是多个工程的集合。工程文件名的后缀是.xcodeproj，工作空间文件名的后缀是.xcworkspace。</p>
+<h3 id="三、静态链接库"><a href="#三、静态链接库" class="headerlink" title="三、静态链接库"></a>三、静态链接库</h3><p>有时候，我们需要将某一层复用给其他团队、公司或个人，但由于某些原因，我们不能提供源代码，此时就可以将业务逻辑层和数据持有层编写成静态链接库（static library 或 static-linked library）或框架（Framework）。<br>库是一些没有main函数的程序代码的集合。除了静态链接库，还有动态链接库。它们的区别是：静态链接库可以编译到你的执行代码中，应用程序可以在没有静态链接库的环境下运行；动态链接库不能编译到你的执行代码中，应用程序必须在有链接库文件的环境下运行。<br>在Xcode中可以创建静态链接库工程，具体过程如下：<br>File -&gt; New -&gt; Project - &gt; …<br>Framework &amp; Library -&gt; Cocoa Touch Static Library工程模板。如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-995ae4709a910cab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图2:创建静态链接库工程"></p>
+<blockquote>
+<p>Tips:静态链接库中不能有Swift代码模块，只能是Objective-C代码模块。</p>
+</blockquote>
+<h3 id="四、框架"><a href="#四、框架" class="headerlink" title="四、框架"></a>四、框架</h3><p>由于静态链接库比较麻烦，需要给开发者提供.a和.h文件，使用的时候还要配置很多的环境变量。事实上，苹果提供的API（如UIKit、QuartzCoreFoundation）都是框架。为了方便使用，框架会将.a或.h等文件打包在一起。<br>在Xcode中可以创建框架，具体过程如下：<br>File -&gt; New -&gt; Project - &gt; …<br>Framework &amp; Library -&gt; Cocoa Touch Framework</p>
+<blockquote>
+<p>Tips:自定义框架没有静态链接库的限制，Swift代码可以在框架工程中使用。</p>
+</blockquote>
+<h3 id="五、10种分层模式"><a href="#五、10种分层模式" class="headerlink" title="五、10种分层模式"></a>五、10种分层模式</h3><p>由于iOS 8 之后可以使用Swift和Objective-C两种语言，开发人员都有四种方式来选择开发语言。</p>
+<ul>
+<li>采用纯Swift的改革派方式</li>
+<li>采用纯Objective-C的保守派方式</li>
+<li>采用Swift调用Objective-C的左倾改良派</li>
+<li>采用Objective-C调用Swift的右倾改良派</li>
+</ul>
+<p>从技术上讲，无论是否采用分层架构设计，都可以用上述4种方式来选择语言。也就是说，可以在同一层中采用单一语言和搭配混合，也可以在不同层之间采用单一语言和搭配混合。基于图1进行分层，如果只考虑业务逻辑层和数据持有层采用相同语言的情况下，那么可以混合搭配出4种模式，具体如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-6e342241ab5f9ca1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图3:4种混合搭配"></p>
+<p>另外，如果考虑到代码的组织形式，可以分为如下3种：</p>
+<ul>
+<li>同一工程的分层，用P（Project）表示</li>
+<li>基于静态链接库实现的同一个工作空间不同工程的分层，用WL（Workspace Library）表示</li>
+<li>基于自定义框架实现的同一个工作空间不同工程的分层，用WF（Workspace Framework）表示</li>
+</ul>
+<p>组合后得出如下图10种分层模式</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-3b75d604d48f601b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图4:10种分层模式"></p>
+<p>由于框架实现要先进于静态链接库实现，所以WFOOO、WFSSS、WFSOO和WFOSS是我们优先考虑的，如果从技术和设计上无法实现，可以考虑WLOOO和WLSOO，最后是POOO、PSSS、PSOO和POSS实现。</p>
+<h3 id="六、写在最后"><a href="#六、写在最后" class="headerlink" title="六、写在最后"></a>六、写在最后</h3><p>本期主要以介绍为主，下一期将更新实战篇，会以具体的项目为主体，详细解析如何使用分层架构。</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/Leewini" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:mail://1043481495@qq.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 Leewin<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

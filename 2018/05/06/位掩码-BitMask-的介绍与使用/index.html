@@ -1,40 +1,301 @@
-extends base
+<!DOCTYPE html>
+<html lang="en">
 
-block title
-  title= page.title + " | " + config.title
+<!-- Head tag -->
+<head>
 
-block main
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  // gallery that comes before the header
-  if page.photos
-     if page.photos.length
-      .article-gallery
-        .article-gallery-photos.container
-          for photo in page.photos
-            a.article-gallery-img.fancybox(href=url_for(photo), rel="gallery_" + page._id)
-              img(src=url_for(photo), itemprop="image")
+    <!--Description-->
+    
+        <meta name="description" content="一、前言位运算在我们实际开发中用得很少，主要原因还是它对于我们而言不好读、不好懂、也不好计算，如果不经常实践，很容易就生疏了。但实际上，位运算是一种很好的运算思想，它的优点自然是计算快，代码更少。
+二、基本知识介绍
+二进制：二进制是由1和0两个数字组成的，它可以表示两种状态，即开和关。所有输入电脑的">
+    
 
-  .wrapper
-    .container.post-header
-      h1: = page.title
+    <!--Author-->
+    
+        <meta name="author" content="Leewin">
+    
 
-  .wrapper
-    .container.meta
-      .post-time= page.date.format(config.date_format)
-      if (page.categories && page.categories.length)
-        .post-categories
-          != list_categories(page.categories, {show_count: false, class: 'post-category', style: 'none', separator: '>'})
-      if (page.tags && page.tags.length)
-        .post-tags
-          != list_tags(page.tags, {show_count: false, class: 'post-tag', style:'none', separator:'/'})
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="位掩码(BitMask)的介绍与使用"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Welcome"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>位掩码(BitMask)的介绍与使用 - Welcome</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
 
 
-  article
-    .container.post
-      != page.content
+    <!-- favicon -->
+    
+	
+</head>
 
-    // comment system
-    .container
-      hr
-      include _partial/comments
 
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Leewin's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/Leewini">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>位掩码(BitMask)的介绍与使用</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-05-06
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>位运算在我们实际开发中用得很少，主要原因还是它对于我们而言不好读、不好懂、也不好计算，如果不经常实践，很容易就生疏了。但实际上，位运算是一种很好的运算思想，它的优点自然是计算快，代码更少。</p>
+<h3 id="二、基本知识介绍"><a href="#二、基本知识介绍" class="headerlink" title="二、基本知识介绍"></a>二、基本知识介绍</h3><ul>
+<li>二进制：<br>二进制是由1和0两个数字组成的，它可以表示两种状态，即开和关。所有输入电脑的任何信息最终都要转化为二进制。目前通用的是ASCII码。最基本的单位为bit。</li>
+<li>位运算：<br>程序中的所有数在计算机内存中都是以二进制的形式储存的。位运算说穿了，就是直接对整数在内存中的二进制位进行操作。比如，and运算本来是一个逻辑运算符，但整数与整数之间也可以进行and运算。举个例子，6的二进制是110，11的二进制是1011，那么6 and 11的结果就是2，它是二进制对应位进行逻辑运算的结果（0表示False，1表示True，空位都当0处理）。</li>
+</ul>
+<h3 id="三、问题引用"><a href="#三、问题引用" class="headerlink" title="三、问题引用"></a>三、问题引用</h3><ul>
+<li>老鼠试毒<br>有1000瓶水，其中有一瓶有毒，小白鼠只要尝一点带毒的水24小时后就会死亡，问至少要多少只小白鼠才能在24小时内鉴别出哪瓶水有毒？</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/6544436-e39714047c20c21e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="老鼠试毒.png"></p>
+<p>这里，位掩码的使用就可以巧妙的解决此问题。</p>
+<p>我们先将问题简化一下：假设只有8瓶水，其中1瓶有毒。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6544436-64cd99c43327845d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8杯水分别编号.png"></p>
+<p>将该矩阵转置，得：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6544436-7b711ad635d02818.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="水杯矩阵转置.png"></p>
+<p>依上述场景，取4只容器，转置后的矩阵数列配组合溶液：<br>取数位上为1的水，放入相应的容器，即：<br>第一杯：只包含8号水<br>第二杯：包含4、5、6、7号水<br>第三杯：包含2、3、6、7号水<br>第四杯：包含1、3、5、7号水</p>
+<p>取4只老鼠，编号1、2、3、4，分别喝下第一杯…第四杯水，<br>4只老鼠的生死状态依次记为 w x y z，（w,x,y,z = {0,1}）<br>死亡记作1，非死亡记作0<br>将二进制数列wxyz转为十进制，则得到有毒水的号码。<br>假设6号水有毒，那么往回推算，不难看出，第2、3只老鼠会死亡，<br>得到的wxyz的数列就是0110，转十进制后就是6。</p>
+<p>将1000瓶依次编号：1，2，3，4，…，1000； 且都记作二进制；<br>那我们要用多少位来表示呢？<br>总数是1000，2^9=512， 2^10=1024，于是至少要10位才够表示，<br>也就是：0000000001，0000000010，0000000011，…，1111101000；<br>道理同上。</p>
+<h3 id="四、结合实际问题"><a href="#四、结合实际问题" class="headerlink" title="四、结合实际问题"></a>四、结合实际问题</h3><p>我们已经见识了二进制的厉害之处了，接下来我们结合代码来看看，在iOS开发中的应用（其实在任何开发中都一样）</p>
+<ul>
+<li>在实际开发中，我们常常遇到权限的判断的问题，比如说，不同的用户对系统有不同的操作权限，有的用户可能有多种权限，我们最常规的办法就是每一个权限定义一个BOOL值。<br>假设，某系统有4种权限，那么，就有了：<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BM_User</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> permission1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> permission2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> permission3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> permission4;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>那用户A同时拥有permission1、permission2、permission4怎么表示呢？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BM_User *userA = [[BM_User alloc] init];</span><br><span class="line">userA.permission1 = <span class="literal">YES</span>;</span><br><span class="line">userA.permission2 = <span class="literal">YES</span>;</span><br><span class="line">userA.permission4 = <span class="literal">YES</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这样的操作大家见多了吧？那我们来看看另一种写法：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BM_User</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) OptionPermission permission;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>有人就要问了，OptionPermission是什么鬼？来，继续。。。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">权限枚举</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">- 1: permission1，二进制第1位，0表示否，1表示是</span></span><br><span class="line"><span class="comment">- 2: permission2，二进制第2位，0表示否，1表示是</span></span><br><span class="line"><span class="comment">- 4: permission3，二进制第3位，0表示否，1表示是</span></span><br><span class="line"><span class="comment">- 8: permission4，二进制第4位，0表示否，1表示是</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_OPTIONS</span>(<span class="built_in">NSUInteger</span>, OptionPermission) &#123;</span><br><span class="line">permission1 = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,<span class="comment">//0001,1</span></span><br><span class="line">permission2 = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,<span class="comment">//0010,2</span></span><br><span class="line">permission3 = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,<span class="comment">//0100,4</span></span><br><span class="line">permission4 = <span class="number">1</span> &lt;&lt; <span class="number">3</span>,<span class="comment">//1000,8</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>那用户A同时拥有permission1、permission2、permission4怎么表示呢？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BM_User *userA = [[BM_User alloc] init];</span><br><span class="line">userA.permission = permission1 | permission2 | permission4;</span><br></pre></td></tr></table></figure></p>
+<p>是不是神清气爽？</p>
+<p>现在我们就具体化4种权限，并给出基础位掩码的表达及运算：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#ifndef BM_Head_h</span></span><br><span class="line"><span class="meta">#define BM_Head_h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">权限枚举</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">- 1: 是否允许查询，二进制第1位，0表示否，1表示是</span></span><br><span class="line"><span class="comment">- 2: 是否允许新增，二进制第2位，0表示否，1表示是</span></span><br><span class="line"><span class="comment">- 4: 是否允许修改，二进制第3位，0表示否，1表示是</span></span><br><span class="line"><span class="comment">- 8: 是否允许删除，二进制第4位，0表示否，1表示是</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_OPTIONS</span>(<span class="built_in">NSUInteger</span>, OptionPermission) &#123;</span><br><span class="line">ALLOW_SELECT = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,<span class="comment">//0001,1</span></span><br><span class="line">ALLOW_INSERT = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,<span class="comment">//0010,2</span></span><br><span class="line">ALLOW_UPDATE = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,<span class="comment">//0100,4</span></span><br><span class="line">ALLOW_DELETE = <span class="number">1</span> &lt;&lt; <span class="number">3</span>,<span class="comment">//1000,8</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#endif /* BM_Head_h */</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"BM_Permission.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"BM_Head.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BM_Permission</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** 存储目前的权限状态 */</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) OptionPermission flag;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">BM_Permission</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** 重新设置权限 */</span></span><br><span class="line">- (<span class="keyword">void</span>)setPermission:(OptionPermission)permission &#123;</span><br><span class="line"><span class="keyword">self</span>.flag = permission;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 添加一项或多项权限 */</span></span><br><span class="line">- (<span class="keyword">void</span>)enable:(OptionPermission)permission &#123;</span><br><span class="line"><span class="keyword">self</span>.flag |= permission;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 删除一项或多项权限 */</span></span><br><span class="line">- (<span class="keyword">void</span>)disable:(OptionPermission)permission &#123;</span><br><span class="line"><span class="keyword">self</span>.flag &amp;= ~permission;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 是否拥某些权限 */</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)siAllow:(OptionPermission)permission &#123;</span><br><span class="line"><span class="keyword">return</span> (<span class="keyword">self</span>.flag &amp; permission) == permission;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 是否禁用了某些权限 */</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)isNotAllow:(OptionPermission)permission &#123;</span><br><span class="line"><span class="keyword">return</span> (<span class="keyword">self</span>.flag &amp; permission) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 是否仅仅拥有某些权限 */</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)isOnlyAllow:(OptionPermission)permission &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>.flag == permission;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="五、写在最后"><a href="#五、写在最后" class="headerlink" title="五、写在最后"></a>五、写在最后</h3><ul>
+<li>大家还可以自行搜索一下NS_OPTIONS与NS_ENUM的区别，他们都是用来定义枚举的，但其用法是有很大不同。</li>
+<li>博主我最近一直在考虑优化代码，正在开发的项目中就有很多权限判断的问题，我也在寻找各种各样更好的写法。</li>
+<li>也希望大家重视代码的表达，因此更加优化自己的代码。</li>
+</ul>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/Leewini" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:mail://1043481495@qq.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 Leewin<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -1,40 +1,288 @@
-extends base
+<!DOCTYPE html>
+<html lang="en">
 
-block title
-  title= page.title + " | " + config.title
+<!-- Head tag -->
+<head>
 
-block main
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  // gallery that comes before the header
-  if page.photos
-     if page.photos.length
-      .article-gallery
-        .article-gallery-photos.container
-          for photo in page.photos
-            a.article-gallery-img.fancybox(href=url_for(photo), rel="gallery_" + page._id)
-              img(src=url_for(photo), itemprop="image")
+    <!--Description-->
+    
+        <meta name="description" content="一、你可能遇到过的问题Question 1.使用UITextField时；当你想时时监测textField.text的变化，以获取最新的text，你是用这样的代理方法吗？
+12345678910- (BOOL)textField:(UITextField *)textField shouldChan">
+    
 
-  .wrapper
-    .container.post-header
-      h1: = page.title
+    <!--Author-->
+    
+        <meta name="author" content="Leewin">
+    
 
-  .wrapper
-    .container.meta
-      .post-time= page.date.format(config.date_format)
-      if (page.categories && page.categories.length)
-        .post-categories
-          != list_categories(page.categories, {show_count: false, class: 'post-category', style: 'none', separator: '>'})
-      if (page.tags && page.tags.length)
-        .post-tags
-          != list_tags(page.tags, {show_count: false, class: 'post-tag', style:'none', separator:'/'})
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="监测那些常规方法捕捉不到的变化-观察者模式"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Welcome"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>监测那些常规方法捕捉不到的变化-观察者模式 - Welcome</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
 
 
-  article
-    .container.post
-      != page.content
+    <!-- favicon -->
+    
+	
+</head>
 
-    // comment system
-    .container
-      hr
-      include _partial/comments
 
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Leewin's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/Leewini">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>监测那些常规方法捕捉不到的变化-观察者模式</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-10-31
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="一、你可能遇到过的问题"><a href="#一、你可能遇到过的问题" class="headerlink" title="一、你可能遇到过的问题"></a>一、你可能遇到过的问题</h3><h4 id="Question-1-使用UITextField时；"><a href="#Question-1-使用UITextField时；" class="headerlink" title="Question 1.使用UITextField时；"></a>Question 1.使用UITextField时；</h4><p>当你想时时监测textField.text的变化，以获取最新的text，你是用这样的代理方法吗？</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)textField:(<span class="built_in">UITextField</span> *)textField shouldChangeCharactersInRange:(<span class="built_in">NSRange</span>)range replacementString:(<span class="built_in">NSString</span> *)string &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (textField == <span class="keyword">self</span>.textField) &#123;</span><br><span class="line"><span class="built_in">NSString</span> *futureStr = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@%@"</span>, textField.text, string];</span><br><span class="line"><span class="keyword">if</span> ([futureStr isEqualToString:<span class="string">@"000"</span>]) &#123;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"----------The text value is 000----------"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Question-2-使用UIWebView或WKWebView时；"><a href="#Question-2-使用UIWebView或WKWebView时；" class="headerlink" title="Question 2.使用UIWebView或WKWebView时；"></a>Question 2.使用UIWebView或WKWebView时；</h4><p>由于网页端用Ajax，导致我们并不能用常规的网页加载代理方法来检测webView的title的值~比如这样<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didFinishNavigation:(<span class="built_in">WKNavigation</span> *)navigation &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (webView.title.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line"><span class="keyword">self</span>.title = webView.title;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="二、这里我们就需要用上观察者模式了"><a href="#二、这里我们就需要用上观察者模式了" class="headerlink" title="二、这里我们就需要用上观察者模式了"></a>二、这里我们就需要用上观察者模式了</h3><p>KVO，即key-value-observing,利用一个key来找到某个属性并监听其值得改变。其实这也是一种典型的观察者模式。</p>
+<ul>
+<li>1，添加观察者</li>
+<li>2，在观察者中实现监听方法，observeValueForKeyPath: ofObject: change: context:（因为这个方法属于NSObject，所以，可以用于检测任何对象的任何属性的变化）</li>
+<li>3，移除观察者</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">用万能的User类来煮个栗子~</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">- (<span class="keyword">void</span>)addObserverForUserName &#123;</span><br><span class="line"></span><br><span class="line">User *user = [[User alloc] init];</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Whether the change dictionaries sent in notifications</span></span><br><span class="line"><span class="comment">should contain NSKeyValueChangeNewKey and NSKeyValueChangeOldKey entries, respectively.</span></span><br><span class="line"><span class="comment">-------------------------------------------------------------</span></span><br><span class="line"><span class="comment">NSKeyValueObservingOptionNew = 0x01,新值</span></span><br><span class="line"><span class="comment">NSKeyValueObservingOptionOld = 0x02,旧值</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">[user addObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"name"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">监测 user 的 name 属性 发生变化的情况</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">@param keyPath 被监听的属性</span></span><br><span class="line"><span class="comment">@param object 被监听的对象</span></span><br><span class="line"><span class="comment">@param change 新值和旧值</span></span><br><span class="line"><span class="comment">@param context 附加的额外数据</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath</span><br><span class="line">ofObject:(<span class="keyword">id</span>)object</span><br><span class="line">change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; *)change</span><br><span class="line">context:(<span class="keyword">void</span> *)context &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@"name"</span>] &amp;&amp; [object isEqual:user]) &#123;</span><br><span class="line"><span class="comment">// Do Something</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"----------user'name has changed----------"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)dealloc &#123;</span><br><span class="line"></span><br><span class="line">[user removeObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"name"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三、解决上述及类似的问题"><a href="#三、解决上述及类似的问题" class="headerlink" title="三、解决上述及类似的问题"></a>三、解决上述及类似的问题</h3><h4 id="Answer-1"><a href="#Answer-1" class="headerlink" title="Answer 1"></a>Answer 1</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[self.textField addTarget:self action:@selector(textFieldDidChange:) </span><br><span class="line">forControlEvents:UIControlEventEditingChanged];</span><br><span class="line"></span><br><span class="line">- (void)textFieldDidChange:(UITextField *)textField &#123;</span><br><span class="line">// TODO</span><br><span class="line">if ([textField.text isEqualToString:@&quot;000&quot;]) &#123;</span><br><span class="line">NSLog(@&quot;----------The text value is 000----------&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Answer-2"><a href="#Answer-2" class="headerlink" title="Answer 2"></a>Answer 2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">为webView配置监听者</span><br><span class="line">*/</span><br><span class="line">- (void)configWebViewObserver &#123;</span><br><span class="line"></span><br><span class="line">[webView addObserver:self forKeyPath:@&quot;title&quot; options:NSKeyValueObservingOptionNew context:nil];</span><br><span class="line">[webView addObserver:self forKeyPath:@&quot;estimatedProgress&quot; options:NSKeyValueObservingOptionNew context:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath</span><br><span class="line">ofObject:(id)object</span><br><span class="line">change:(NSDictionary&lt;NSKeyValueChangeKey,id&gt; *)change</span><br><span class="line">context:(void *)context &#123;</span><br><span class="line"></span><br><span class="line">if ([keyPath isEqualToString:@&quot;title&quot;] &amp;&amp; [object isEqual:webView]) &#123;</span><br><span class="line">self.title = self.webView.title;</span><br><span class="line">&#125; else if ([keyPath isEqualToString:@&quot;estimatedProgress&quot;] &amp;&amp; [object isEqual:webView]) &#123;</span><br><span class="line">self.progressView.progress = self.webView.estimatedProgress;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)dealloc &#123;</span><br><span class="line"></span><br><span class="line">[self.webView removeObserver:self forKeyPath:@&quot;title&quot;];</span><br><span class="line">[self.webView removeObserver:self forKeyPath:@&quot;estimatedProgress&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="附：再来一发监听UITableView的contentOffset"><a href="#附：再来一发监听UITableView的contentOffset" class="headerlink" title="附：再来一发监听UITableView的contentOffset"></a>附：再来一发监听UITableView的contentOffset</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (void)configObserverForTableView &#123;</span><br><span class="line"></span><br><span class="line">[tableView addObserver:self forKeyPath:@&quot;contentOffset&quot; options:NSKeyValueObservingOptionNew context:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath</span><br><span class="line">ofObject:(id)object</span><br><span class="line">change:(NSDictionary&lt;NSString *,id&gt; *)change</span><br><span class="line">context:(void *)context &#123;</span><br><span class="line"></span><br><span class="line">if ([keyPath isEqualToString:@&quot;contentOffset&quot;] &amp;&amp; object == tableView) &#123;</span><br><span class="line"></span><br><span class="line">CGFloat offsetY             = self.contentOffset.y;</span><br><span class="line">CGFloat offsetX             = self.contentOffset.x;</span><br><span class="line">NSLog(@&quot;----------offsetX = %f, offsetY = %f----------&quot;, offsetX, offsetY);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)dealloc &#123;</span><br><span class="line"></span><br><span class="line">[tableView removeObserver:self forKeyPath:@&quot;contentOffset&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="看到这里大家一定就能明白观察者模式的基本套路了吧，心里突然响起了音乐：”其实很简单，其实很自然”"><a href="#看到这里大家一定就能明白观察者模式的基本套路了吧，心里突然响起了音乐：”其实很简单，其实很自然”" class="headerlink" title="看到这里大家一定就能明白观察者模式的基本套路了吧，心里突然响起了音乐：”其实很简单，其实很自然”~"></a>看到这里大家一定就能明白观察者模式的基本套路了吧，心里突然响起了音乐：”其实很简单，其实很自然”~</h4><h3 id="四、写在最后"><a href="#四、写在最后" class="headerlink" title="四、写在最后"></a>四、写在最后</h3><ul>
+<li>此方法可用于监听一切对象的属性变化，包括系统的类（UITableView、UIWebView等）和自定义的类（User、Car等）</li>
+<li>上面的User类是通例，属于基本模型，实际情况有需求而定</li>
+<li>还可以用于监听动画的特殊时刻，比如：frame、color等变化</li>
+<li>一定记得在析构函数里移除监听；</li>
+<li>一定记得在析构函数里移除监听；</li>
+<li>一定记得在析构函数里移除监听……</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-14c27f87b0767d29.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="我是与文无关的图.JPG"></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/Leewini" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:mail://1043481495@qq.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 Leewin<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

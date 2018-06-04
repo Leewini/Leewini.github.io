@@ -1,40 +1,319 @@
-extends base
+<!DOCTYPE html>
+<html lang="en">
 
-block title
-  title= page.title + " | " + config.title
+<!-- Head tag -->
+<head>
 
-block main
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  // gallery that comes before the header
-  if page.photos
-     if page.photos.length
-      .article-gallery
-        .article-gallery-photos.container
-          for photo in page.photos
-            a.article-gallery-img.fancybox(href=url_for(photo), rel="gallery_" + page._id)
-              img(src=url_for(photo), itemprop="image")
+    <!--Description-->
+    
+        <meta name="description" content="一、前言地图开发的重要性就不讲了，大家看一下自己手机里的App就知道了，10个App有9个包含了位置服务功能，而且发展到今天，精准度已经非常高了。balabala……
 
-  .wrapper
-    .container.post-header
-      h1: = page.title
+二、关于地图的Info.plist文件配置iOS 10 和iOS 11 的设置分别是这样配置的（如下图）注：每次Apple有大版本">
+    
 
-  .wrapper
-    .container.meta
-      .post-time= page.date.format(config.date_format)
-      if (page.categories && page.categories.length)
-        .post-categories
-          != list_categories(page.categories, {show_count: false, class: 'post-category', style: 'none', separator: '>'})
-      if (page.tags && page.tags.length)
-        .post-tags
-          != list_tags(page.tags, {show_count: false, class: 'post-tag', style:'none', separator:'/'})
+    <!--Author-->
+    
+        <meta name="author" content="Leewin">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS 地图开发-那些年我们遇到的坑~"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Welcome"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS 地图开发-那些年我们遇到的坑~ - Welcome</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
 
 
-  article
-    .container.post
-      != page.content
+    <!-- favicon -->
+    
+	
+</head>
 
-    // comment system
-    .container
-      hr
-      include _partial/comments
 
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Leewin's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/Leewini">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>iOS 地图开发-那些年我们遇到的坑~</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-12-04
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>地图开发的重要性就不讲了，大家看一下自己手机里的App就知道了，10个App有9个包含了位置服务功能，而且发展到今天，精准度已经非常高了。balabala……</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-876f33e7750431d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/240" alt="我是地图.png"></p>
+<h3 id="二、关于地图的Info-plist文件配置"><a href="#二、关于地图的Info-plist文件配置" class="headerlink" title="二、关于地图的Info.plist文件配置"></a>二、关于地图的Info.plist文件配置</h3><p>iOS 10 和iOS 11 的设置分别是这样配置的（如下图）<br>注：每次Apple有大版本更新，都得检查一下plist文件的权限配置</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-a961b4cdbc63ed99.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 10 位置服务权限配置.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-990f785450c1f812.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 11 位置服务权限配置.png"></p>
+<p>如果配置不完整，在部分系统上是无法加载地图的（显示为一片蓝色），且在相应App的设置里都找不到『位置』这一项。反之，如果你发现设置里没有『位置』，大概就是权限配置有问题了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-6a224bbc9a9c0541.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/240" alt="『位置』.png"></p>
+<h3 id="三、我们用那种地图更好？"><a href="#三、我们用那种地图更好？" class="headerlink" title="三、我们用那种地图更好？"></a>三、我们用那种地图更好？</h3><p>常用的地图：高德地图、百度地图、腾讯地图、Google地图、Apple地图</p>
+<h4 id="1-基于功能的强大，个人首推高德地图（如果不需要国际化）"><a href="#1-基于功能的强大，个人首推高德地图（如果不需要国际化）" class="headerlink" title="1.基于功能的强大，个人首推高德地图（如果不需要国际化）"></a>1.基于功能的强大，个人首推高德地图（如果不需要国际化）</h4><p>我认为高德地图是我大天朝最好的地图供应商（仅限于国内），主要原因当然是里面的代理方法相当的丰富，文档也很清晰。</p>
+<h4 id="2-如果需要国际化，就只能考虑Apple地图和Google地图了"><a href="#2-如果需要国际化，就只能考虑Apple地图和Google地图了" class="headerlink" title="2.如果需要国际化，就只能考虑Apple地图和Google地图了"></a>2.如果需要国际化，就只能考虑Apple地图和Google地图了</h4><p>Google地图当然很好（可能是地球上最好的地图服务商），但免费版只提供了基础的定位服务，兴趣点等稍高级的服务都是收费的，所以，基于『勤俭节约』，就放弃吧！</p>
+<h4 id="3-重点来了，Apple地图"><a href="#3-重点来了，Apple地图" class="headerlink" title="3.重点来了，Apple地图"></a>3.重点来了，Apple地图</h4><p>其实，Apple地图的数据并不是Apple公司提供的。大家打开自带的地图App，看看左下角，有一个『高德地图』的标志，那地处歪果的iPhone里地图App是什么呢？答案是『TomTom』，大家番羽墙出去，再打开看看就知道了。也就是说，Apple只拿着别人家的数据，优化了一下UI，就成了Apple地图了，它自己是没有地图数据的，就更不能提供地图服务了。Apple地图是根据当前网络所处的国家，自动请求不同服务商的数据（国内是高德，国外则是Tom Tom）。Apple地图的API完全没有高德地图的API丰富。</p>
+<p>注：其实如果业务逻辑不那么复杂，直接用Apple地图就行了。毕竟原生，简单、好用。（文档中都有）</p>
+<h3 id="四、原生地图的坑"><a href="#四、原生地图的坑" class="headerlink" title="四、原生地图的坑"></a>四、原生地图的坑</h3><p>『附近的兴趣点』！！！（兴趣点 学名：POI - Point of Interest）</p>
+<p>『关键字检索POI』就大家都有，就不说了。这里主要说一下『检索周边POI』。</p>
+<h4 id="1-什么叫『附近的兴趣点』？"><a href="#1-什么叫『附近的兴趣点』？" class="headerlink" title="1.什么叫『附近的兴趣点』？"></a>1.什么叫『附近的兴趣点』？</h4><p>在地图表达中，一个POI可代表一栋大厦、一家商铺、一处景点等等。通过POI搜索，完成找餐馆、找景点、找厕所等等的功能。<br>比如：附近的停车场、附近的建筑、附近的公司、附近的电影院。</p>
+<h4 id="2-高德地图如何实现？"><a href="#2-高德地图如何实现？" class="headerlink" title="2.高德地图如何实现？"></a>2.高德地图如何实现？</h4><p>高德地图的POI类别共20个大类，分别为：（InterestKey）</p>
+<ul>
+<li>汽车服务、汽车销售、汽车维修、摩托车服务、餐饮服务、</li>
+<li>购物服务、生活服务、体育休闲服务、医疗保健服务、住宿服务、</li>
+<li>风景名胜、商务住宅、政府机构及社会团体、科教文化服务、交通设施服务、</li>
+<li>金融保险服务、公司企业、道路附属设施、地名地址信息、公共设施</li>
+</ul>
+<p>注：不设置POI的类别，默认返回“餐饮服务”、“商务住宅”、“生活服务”这三种类别的POI</p>
+<ul>
+<li>高德地图的附近POI检索（AMapPOIAroundSearchRequest）</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)loadAroundPOIsInAMapWithCoordinate:(<span class="built_in">CLLocationCoordinate2D</span>)coordinate &#123;</span><br><span class="line"></span><br><span class="line">AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc]init];</span><br><span class="line">request.location = [AMapGeoPoint locationWithLatitude:coordinate.latitude longitude:coordinate.longitude];</span><br><span class="line"><span class="comment">// exp : @"公司企业|政府机构及社会团体|道路附属设施|地名地址信息"</span></span><br><span class="line">request.types = InterestKey;</span><br><span class="line">request.sortrule = <span class="number">0</span>;</span><br><span class="line">request.requireExtension = <span class="literal">YES</span>;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span>.search AMapPOIAroundSearch:request];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (AMapPOI *poi <span class="keyword">in</span> response.pois) &#123;</span><br><span class="line"><span class="comment">// 检索的结果</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>高德地图的关键字检索是另一套方法（AMapInputTipsSearchRequest）<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)searchInAMapWith:(<span class="built_in">NSString</span> *)searchKey &#123;</span><br><span class="line"></span><br><span class="line">AMapInputTipsSearchRequest *request = [[AMapInputTipsSearchRequest alloc]init];</span><br><span class="line">request.keywords = searchKey;</span><br><span class="line">request.types = <span class="string">@"公司企业|政府机构及社会团体"</span>;</span><br><span class="line">[<span class="keyword">self</span>.search AMapInputTipsSearch:request];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onInputTipsSearchDone:(AMapInputTipsSearchRequest *)request response:(AMapInputTipsSearchResponse *)response &#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSMutableArray</span> *resultArrM = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line"><span class="keyword">for</span> (AMapTip *tip <span class="keyword">in</span> response.tips) &#123;</span><br><span class="line"><span class="comment">// 检索的结果</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-Apple地图如何实现？"><a href="#3-Apple地图如何实现？" class="headerlink" title="3.Apple地图如何实现？"></a>3.Apple地图如何实现？</h4><p>『臣妾』做不到！！！我也很无奈！！！</p>
+<ul>
+<li>好吧，其实也有一个比较凑合的方式（非常凑合）：</li>
+</ul>
+<p>那就是有关键字检索的方式，固定检索事先设置好的关键字，比如：<br>Company|Community|cafe|supermarket|village|<br>Shop|Restaurant|School|hospital|Street|<br>Convenience store|Shopping Centre|Place names|Hotel|Grocery store<br>经过实测，有一定的效果（毕竟，有总比没有好~）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (void)loadAroundPOIsInAppleMapWithCoordinate:(CLLocationCoordinate2D)coordinate &#123;</span><br><span class="line"></span><br><span class="line">MKCoordinateSpan span = &#123;0.005, 0.005&#125;;</span><br><span class="line">MKCoordinateRegion region = &#123;coordinate, span&#125;; //MKCoordinateRegionMakeWithDistance(coordinate,1000, 1000);</span><br><span class="line">MKLocalSearchRequest *req = [[MKLocalSearchRequest alloc] init];</span><br><span class="line">req.region = region;</span><br><span class="line">req.naturalLanguageQuery = @&quot;Company&quot;;</span><br><span class="line">MKLocalSearch * ser = [[MKLocalSearch alloc] initWithRequest:req];</span><br><span class="line">//开始检索，结果返回在block中</span><br><span class="line">[ser startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) &#123;</span><br><span class="line">if (error) &#123;</span><br><span class="line">return ;</span><br><span class="line">&#125;</span><br><span class="line">//兴趣点节点数组</span><br><span class="line">for (MKMapItem *item in response.mapItems) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>如果是真正的关键字检索呢？大家自行对比一下（其实是一模一样，唯一不同就是naturalLanguageQuery的不同使用，注：非官方做法，慎重！）<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)searchInAppleMapWithNaturaLanguage:(<span class="built_in">NSString</span> *)searchKey &#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">MKCoordinateRegion</span> region = <span class="keyword">self</span>.mkMapView.region;</span><br><span class="line"><span class="built_in">MKLocalSearchRequest</span> *req = [[<span class="built_in">MKLocalSearchRequest</span> alloc] init];</span><br><span class="line">req.region = region;</span><br><span class="line">req.naturalLanguageQuery = searchKey;</span><br><span class="line"><span class="built_in">MKLocalSearch</span> * ser = [[<span class="built_in">MKLocalSearch</span> alloc] initWithRequest:req];</span><br><span class="line"><span class="comment">//开始检索，结果返回在block中</span></span><br><span class="line">[ser startWithCompletionHandler:^(<span class="built_in">MKLocalSearchResponse</span> *response, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line"><span class="keyword">if</span> (error) &#123;</span><br><span class="line"><span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//兴趣点节点数组</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">MKMapItem</span> *item <span class="keyword">in</span> response.mapItems) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="五、关于地图坐标系的问题"><a href="#五、关于地图坐标系的问题" class="headerlink" title="五、关于地图坐标系的问题"></a>五、关于地图坐标系的问题</h3><ul>
+<li>地球坐标(WGS84) - 是国际标准，GPS坐标（Google Earth使用、或者GPS模块）- 苹果的CLLocationManager</li>
+<li>火星坐标(GCJ-02) - 中国坐标偏移标准，Google地图、高德、腾讯使用</li>
+<li>百度坐标(BD-09) - 百度坐标偏移标准，Baidu地图使用</li>
+</ul>
+<p>我们经常在常用的这几种地图中进行坐标转换，或用于第三方地图的导航，或用于后台下发地址的打点等等场景。虽然百度和高德都提供相应的API，但是他们都只提供向自家坐标系转化的API，需要连网请求才能得到转化后的结果。</p>
+<p>提供一下坐标系的转换代码 👇👇👇</p>
+<p>CLLocation+Sino.h<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;CoreLocation/CoreLocation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CLLocation</span> (<span class="title">Sino</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**地球坐标转火星坐标*/</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CLLocation</span>*)locationMarsFromEarth;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**火星坐标转百度坐标*/</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CLLocation</span>*)locationBearPawFromMars;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**百度坐标转火星坐标*/</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CLLocation</span>*)locationMarsFromBearPaw;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>CLLocation+Sino.m<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"CLLocation+Sino.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> transform_earth_2_mars(<span class="keyword">double</span> lat, <span class="keyword">double</span> lng, <span class="keyword">double</span>* tarLat, <span class="keyword">double</span>* tarLng);</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> transform_mars_2_bear_paw(<span class="keyword">double</span> lat, <span class="keyword">double</span> lng, <span class="keyword">double</span>* tarLat, <span class="keyword">double</span>* tarLng);</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> transform_bear_paw_2_mars(<span class="keyword">double</span> lat, <span class="keyword">double</span> lng, <span class="keyword">double</span>* tarLat, <span class="keyword">double</span>* tarLng);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CLLocation</span> (<span class="title">Sino</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CLLocation</span>*) locationMarsFromEarth &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> lat = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> lng = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line">transform_earth_2_mars(<span class="keyword">self</span>.coordinate.latitude, <span class="keyword">self</span>.coordinate.longitude, &amp;lat, &amp;lng);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [[<span class="built_in">CLLocation</span> alloc] initWithCoordinate:<span class="built_in">CLLocationCoordinate2DMake</span>(lat, lng)</span><br><span class="line"></span><br><span class="line">altitude:<span class="keyword">self</span>.altitude</span><br><span class="line"></span><br><span class="line">horizontalAccuracy:<span class="keyword">self</span>.horizontalAccuracy</span><br><span class="line"></span><br><span class="line">verticalAccuracy:<span class="keyword">self</span>.verticalAccuracy</span><br><span class="line"></span><br><span class="line">course:<span class="keyword">self</span>.course</span><br><span class="line"></span><br><span class="line">speed:<span class="keyword">self</span>.speed</span><br><span class="line"></span><br><span class="line">timestamp:<span class="keyword">self</span>.timestamp];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CLLocation</span>*) locationBearPawFromMars &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> lat = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> lng = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line">transform_mars_2_bear_paw(<span class="keyword">self</span>.coordinate.latitude, <span class="keyword">self</span>.coordinate.longitude, &amp;lat, &amp;lng);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [[<span class="built_in">CLLocation</span> alloc] initWithCoordinate:<span class="built_in">CLLocationCoordinate2DMake</span>(lat, lng)</span><br><span class="line"></span><br><span class="line">altitude:<span class="keyword">self</span>.altitude</span><br><span class="line"></span><br><span class="line">horizontalAccuracy:<span class="keyword">self</span>.horizontalAccuracy</span><br><span class="line"></span><br><span class="line">verticalAccuracy:<span class="keyword">self</span>.verticalAccuracy</span><br><span class="line"></span><br><span class="line">course:<span class="keyword">self</span>.course</span><br><span class="line"></span><br><span class="line">speed:<span class="keyword">self</span>.speed</span><br><span class="line"></span><br><span class="line">timestamp:<span class="keyword">self</span>.timestamp];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CLLocation</span>*) locationMarsFromBearPaw &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> lat = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> lng = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line">transform_bear_paw_2_mars(<span class="keyword">self</span>.coordinate.latitude, <span class="keyword">self</span>.coordinate.longitude, &amp;lat, &amp;lng);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [[<span class="built_in">CLLocation</span> alloc] initWithCoordinate:<span class="built_in">CLLocationCoordinate2DMake</span>(lat, lng)</span><br><span class="line"></span><br><span class="line">altitude:<span class="keyword">self</span>.altitude</span><br><span class="line"></span><br><span class="line">horizontalAccuracy:<span class="keyword">self</span>.horizontalAccuracy</span><br><span class="line"></span><br><span class="line">verticalAccuracy:<span class="keyword">self</span>.verticalAccuracy</span><br><span class="line"></span><br><span class="line">course:<span class="keyword">self</span>.course</span><br><span class="line"></span><br><span class="line">speed:<span class="keyword">self</span>.speed</span><br><span class="line"></span><br><span class="line">timestamp:<span class="keyword">self</span>.timestamp];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> a = <span class="number">6378245.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> ee = <span class="number">0.00669342162296594323</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> transform_sino_out_china(<span class="keyword">double</span> lat, <span class="keyword">double</span> lon) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (lon &lt; <span class="number">72.004</span> || lon &gt; <span class="number">137.8347</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (lat &lt; <span class="number">0.8293</span> || lat &gt; <span class="number">55.8271</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> transform_earth_2_mars_lat(<span class="keyword">double</span> x, <span class="keyword">double</span> y) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> ret = <span class="number">-100.0</span> + <span class="number">2.0</span> * x + <span class="number">3.0</span> * y + <span class="number">0.2</span> * y * y + <span class="number">0.1</span> * x * y + <span class="number">0.2</span> * sqrt(fabs(x));</span><br><span class="line"></span><br><span class="line">ret += (<span class="number">20.0</span> * sin(<span class="number">6.0</span> * x * M_PI) + <span class="number">20.0</span> * sin(<span class="number">2.0</span> * x * M_PI)) * <span class="number">2.0</span> / <span class="number">3.0</span>;</span><br><span class="line"></span><br><span class="line">ret += (<span class="number">20.0</span> * sin(y * M_PI) + <span class="number">40.0</span> * sin(y / <span class="number">3.0</span> * M_PI)) * <span class="number">2.0</span> / <span class="number">3.0</span>;</span><br><span class="line"></span><br><span class="line">ret += (<span class="number">160.0</span> * sin(y / <span class="number">12.0</span> * M_PI) + <span class="number">320</span> * sin(y * M_PI / <span class="number">30.0</span>)) * <span class="number">2.0</span> / <span class="number">3.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> transform_earth_2_mars_lng(<span class="keyword">double</span> x, <span class="keyword">double</span> y) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> ret = <span class="number">300.0</span> + x + <span class="number">2.0</span> * y + <span class="number">0.1</span> * x * x + <span class="number">0.1</span> * x * y + <span class="number">0.1</span> * sqrt(fabs(x));</span><br><span class="line"></span><br><span class="line">ret += (<span class="number">20.0</span> * sin(<span class="number">6.0</span> * x * M_PI) + <span class="number">20.0</span> * sin(<span class="number">2.0</span> * x * M_PI)) * <span class="number">2.0</span> / <span class="number">3.0</span>;</span><br><span class="line"></span><br><span class="line">ret += (<span class="number">20.0</span> * sin(x * M_PI) + <span class="number">40.0</span> * sin(x / <span class="number">3.0</span> * M_PI)) * <span class="number">2.0</span> / <span class="number">3.0</span>;</span><br><span class="line"></span><br><span class="line">ret += (<span class="number">150.0</span> * sin(x / <span class="number">12.0</span> * M_PI) + <span class="number">300.0</span> * sin(x / <span class="number">30.0</span> * M_PI)) * <span class="number">2.0</span> / <span class="number">3.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> transform_earth_2_mars(<span class="keyword">double</span> lat, <span class="keyword">double</span> lng, <span class="keyword">double</span>* tarLat, <span class="keyword">double</span>* tarLng) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (transform_sino_out_china(lat, lng)) &#123;</span><br><span class="line"></span><br><span class="line">*tarLat = lat;</span><br><span class="line"></span><br><span class="line">*tarLng = lng;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> dLat = transform_earth_2_mars_lat(lng - <span class="number">105.0</span>, lat - <span class="number">35.0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> dLon = transform_earth_2_mars_lng(lng - <span class="number">105.0</span>, lat - <span class="number">35.0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> radLat = lat / <span class="number">180.0</span> * M_PI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> magic = sin(radLat);</span><br><span class="line"></span><br><span class="line">magic = <span class="number">1</span> - ee * magic * magic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> sqrtMagic = sqrt(magic);</span><br><span class="line"></span><br><span class="line">dLat = (dLat * <span class="number">180.0</span>) / ((a * (<span class="number">1</span> - ee)) / (magic * sqrtMagic) * M_PI);</span><br><span class="line"></span><br><span class="line">dLon = (dLon * <span class="number">180.0</span>) / (a / sqrtMagic * cos(radLat) * M_PI);</span><br><span class="line"></span><br><span class="line">*tarLat = lat + dLat;</span><br><span class="line"></span><br><span class="line">*tarLng = lng + dLon;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> x_pi = M_PI * <span class="number">3000.0</span> / <span class="number">180.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> transform_mars_2_bear_paw(<span class="keyword">double</span> gg_lat, <span class="keyword">double</span> gg_lon, <span class="keyword">double</span> *bd_lat, <span class="keyword">double</span> *bd_lon) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> x = gg_lon, y = gg_lat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> z = sqrt(x * x + y * y) + <span class="number">0.00002</span> * sin(y * x_pi);</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> theta = atan2(y, x) + <span class="number">0.000003</span> * cos(x * x_pi);</span><br><span class="line"></span><br><span class="line">*bd_lon = z * cos(theta) + <span class="number">0.0065</span>;</span><br><span class="line"></span><br><span class="line">*bd_lat = z * sin(theta) + <span class="number">0.006</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> transform_bear_paw_2_mars(<span class="keyword">double</span> bd_lat, <span class="keyword">double</span> bd_lon, <span class="keyword">double</span> *gg_lat, <span class="keyword">double</span> *gg_lon) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> x = bd_lon - <span class="number">0.0065</span>, y = bd_lat - <span class="number">0.006</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> z = sqrt(x * x + y * y) - <span class="number">0.00002</span> * sin(y * x_pi);</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> theta = atan2(y, x) - <span class="number">0.000003</span> * cos(x * x_pi);</span><br><span class="line"></span><br><span class="line">*gg_lon = z * cos(theta);</span><br><span class="line"></span><br><span class="line">*gg_lat = z * sin(theta);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="六、写在最后"><a href="#六、写在最后" class="headerlink" title="六、写在最后"></a>六、写在最后</h3><p>本文没有涉及详细开发步骤，主要就是『点一下狼坑』而已，常规的开发网上有很多，而且还有各自的官方开发文档。</p>
+<p>目的是介绍地图开发中一些可能出现的问题，也都是我在开发中的『心路历程』。有不对的地方，欢迎指正！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6544436-a76840f0010c1446.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="就是想配个图.png"></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/Leewini" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:mail://1043481495@qq.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 Leewin<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
