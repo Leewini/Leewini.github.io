@@ -1,351 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+extends base
 
-<!-- Head tag -->
-<head>
+block title
+  title= page.title + " | " + config.title
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+block main
 
-    <!--Description-->
-    
-        <meta name="description" content="一、前言iOS的应用一般情况下，无非就是用户与界面间交互，形成操作指令，然后对数据进行增删改查。当业务过于复杂时，我们就可以采用分层架构设计。这样可以最大程度上解耦，这里，我们主要介绍最经典的三层架构设计模型。大体上，分别为：应用层、服务层、数据层。
+  // gallery that comes before the header
+  if page.photos
+     if page.photos.length
+      .article-gallery
+        .article-gallery-photos.container
+          for photo in page.photos
+            a.article-gallery-img.fancybox(href=url_for(photo), rel="gallery_" + page._id)
+              img(src=url_for(photo), itemprop="image")
 
-Tips: 我们常用的MVC、MVP、MVVM">
-    
+  .wrapper
+    .container.post-header
+      h1: = page.title
 
-    <!--Author-->
-    
-        <meta name="author" content="Leewin">
-    
-
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="iOS分层架构设计-实战篇"/>
-    
-
-    <!--Open Graph Description-->
-    
-
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="Welcome"/>
-
-    <!--Type page-->
-    
-        <meta property="og:type" content="article" />
-    
-
-    <!--Page Cover-->
-    
-
-        <meta name="twitter:card" content="summary" />
-    
-
-    <!-- Title -->
-    
-    <title>iOS分层架构设计-实战篇 - Welcome</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
-
-    <!-- Google Analytics -->
-    
+  .wrapper
+    .container.meta
+      .post-time= page.date.format(config.date_format)
+      if (page.categories && page.categories.length)
+        .post-categories
+          != list_categories(page.categories, {show_count: false, class: 'post-category', style: 'none', separator: '>'})
+      if (page.tags && page.tags.length)
+        .post-tags
+          != list_tags(page.tags, {show_count: false, class: 'post-tag', style:'none', separator:'/'})
 
 
-    <!-- favicon -->
-    
-	
-</head>
+  article
+    .container.post
+      != page.content
 
+    // comment system
+    .container
+      hr
+      include _partial/comments
 
-<body>
-
-    <!-- Menu -->
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Leewin's Blog</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                
-                    <li>
-                        <a href="/">
-                            
-                                Home
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/archives">
-                            
-                                Archives
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/tags">
-                            
-                                Tags
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/categories">
-                            
-                                Categories
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://github.com/Leewini">
-                            
-                                <i class="fa fa-github fa-stack-2x"></i>
-                            
-                        </a>
-                    </li>
-                
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-
-    <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
-
-<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>iOS分层架构设计-实战篇</h1>
-                    
-                    <span class="meta">
-                        <!-- Date and Author -->
-                        
-                        
-                            2018-04-08
-                        
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-            <!-- Tags and categories -->
-           
-
-            <!-- Gallery -->
-            
-
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>iOS的应用一般情况下，无非就是用户与界面间交互，形成操作指令，然后对数据进行增删改查。当业务过于复杂时，我们就可以采用分层架构设计。这样可以最大程度上解耦，这里，我们主要介绍最经典的三层架构设计模型。大体上，分别为：应用层、服务层、数据层。</p>
-<blockquote>
-<p>Tips: 我们常用的MVC、MVP、MVVM等都是属于应用层内的架构，也就是说，它们主要是为应用层解耦等。而本文提到的分层架构是针对整个项目而言。</p>
-</blockquote>
-<h3 id="二、案例分析"><a href="#二、案例分析" class="headerlink" title="二、案例分析"></a>二、案例分析</h3><p>本篇主要以代码实例为主，我们将通过一个简单案例来展示分层架构设计。</p>
-<p>此例主要是模拟了打印机输入端的业务逻辑。</p>
-<p>我们的主要业务逻辑为打印和复印，流程框图如下：👇👇👇</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/6544436-ea03b0873def995a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主要逻辑流程框图.png"></p>
-<p>基本步骤如下：</p>
-<ul>
-<li><p>用户选择服务类型：打印或者复印？</p>
-</li>
-<li><p>如果用户选择打印，则让用户输入要打印的内容，输入完成后点击提交。</p>
-</li>
-<li><p>如果用户选择复印，则让用户提供原件，操作完成后点击提交。</p>
-</li>
-<li><p>提交后，系统生成打印输出预览，用户确认无误后点击立刻打印。</p>
-</li>
-<li><p>提交数据给打印机，开始打印。</p>
-</li>
-</ul>
-<h3 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h3><p>首先我们看一下目录结构👇👇👇</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/6544436-032dae6ebab7476c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="目录结构.png"></p>
-<ul>
-<li>应用层 - ApplicationLayer - MVC</li>
-</ul>
-<blockquote>
-<p>数据模型 - Model<br>PrintModel.h<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *content;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>视图模型 - View<br>PrintView<br>CopyView</p>
-</blockquote>
-<blockquote>
-<p>控制器 - Controller<br>MainController<br>PrintController<br>PreviewController</p>
-</blockquote>
-<p>这一层就不多解释了，采用里MVC架构，主要用于与用户间的交互，接收操作指令等。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">PrintController</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configClient &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.type == OptionPrint) &#123;</span><br><span class="line">[<span class="keyword">self</span> configPrintClient];</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">self</span>.type == OptionCopy) &#123;</span><br><span class="line">[<span class="keyword">self</span> configCopyClient];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configPrintClient &#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *userInput = [<span class="keyword">self</span>.printView getContent];</span><br><span class="line"></span><br><span class="line">PrintModel *model = [[ServiceFactory sharedInstance].printService buildPrintModelWithContent:userInput];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"我要打印了 %@"</span>, model);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configCopyClient &#123;</span><br><span class="line"></span><br><span class="line">PrintModel *model1 = [[ServiceFactory sharedInstance].copyService getCopyPrintModel1];</span><br><span class="line">PrintModel *model2 = [[ServiceFactory sharedInstance].copyService getCopyPrintModel2];</span><br><span class="line">PrintModel *model3 = [[ServiceFactory sharedInstance].copyService getCopyPrintModel3];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"我要复印了 %@ \n %@ \n %@"</span>, model1, model2, model3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>服务层 - ServiceLayer</li>
-</ul>
-<p>此层的所有服务由ServiceFactory来同一调配。ServiceFactory是一个单例，持有服务层的所有服务。由服务层来接触数据层。应用层则接触服务层。</p>
-<p>此处包含了两个服务：打印服务（PrintService）和复印服务（CopyService）<br>注：如果后续有新的服务，则只需要在ServiceFactory中注册一下即可。</p>
-<blockquote>
-<p>ServiceFactory<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"PrintService.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"CopyService.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ServiceFactory</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">instancetype</span>)sharedInstance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) PrintService *printService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) CopyService *copyService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"ServiceFactory.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ServiceFactory</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">instancetype</span>)sharedInstance &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> ServiceFactory *instance = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">instance = [ServiceFactory new];</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line"><span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">[<span class="keyword">self</span> configFoundation];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configFoundation &#123;</span><br><span class="line"><span class="keyword">self</span>.printService = [PrintService new];</span><br><span class="line"><span class="keyword">self</span>.copyService = [CopyService new];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>PrintService<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">PrintModel</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">PrintService</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (PrintModel *)buildPrintModelWithContent:(<span class="built_in">NSString</span> *)content;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"PrintService.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"DataAccessFactory.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">PrintService</span></span></span><br><span class="line"></span><br><span class="line">- (PrintModel *)buildPrintModelWithContent:(<span class="built_in">NSString</span> *)content &#123;</span><br><span class="line">PrintModel *model = [[DataAccessFactory sharedInstance].printDao buildPrintModelWithContent:content];</span><br><span class="line"><span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>CopyService</p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">PrintModel</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CopyService</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel1;</span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel2;</span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"CopyService.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"DataAccessFactory.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CopyService</span></span></span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel1 &#123;</span><br><span class="line">PrintModel *model = [[DataAccessFactory sharedInstance].copyDao getCopyPrintModel1];</span><br><span class="line"><span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel2 &#123;</span><br><span class="line">PrintModel *model = [[DataAccessFactory sharedInstance].copyDao getCopyPrintModel2];</span><br><span class="line"><span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel3 &#123;</span><br><span class="line">PrintModel *model = [[DataAccessFactory sharedInstance].copyDao getCopyPrintModel3];</span><br><span class="line"><span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>数据层 - DataAccessLayer</li>
-</ul>
-<p>此层由DataAccessFactory来同一调配。DataAccessFactory是一个单例，持有数据层的所有资源。由数据层来直接接触数据。</p>
-<p>此处包含了两个数据资源：打印（PrintDAO）和复印（CopyDAO）<br>注：如果后续有新的数据层，则只需要在DataAccessFactory中注册一下即可。</p>
-<blockquote>
-<p>DataAccessFactory<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"PrintDAO.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"CopyDAO.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">DataAccessFactory</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">instancetype</span>)sharedInstance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) PrintDAO *printDao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) CopyDAO *copyDao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"DataAccessFactory.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">DataAccessFactory</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">instancetype</span>)sharedInstance &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> DataAccessFactory *instance = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">instance = [DataAccessFactory new];</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line"><span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">[<span class="keyword">self</span> configFoundation];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configFoundation &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.printDao = [PrintDAO new];</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.copyDao = [CopyDAO new];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>PrintDAO<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">PrintModel</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">PrintDAO</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (PrintModel *)buildPrintModelWithContent:(<span class="built_in">NSString</span> *)content;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"PrintDAO.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"PrintModel.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">PrintDAO</span></span></span><br><span class="line"></span><br><span class="line">- (PrintModel *)buildPrintModelWithContent:(<span class="built_in">NSString</span> *)content &#123;</span><br><span class="line">PrintModel *model = [[PrintModel alloc] init];</span><br><span class="line">model.content = content;</span><br><span class="line"><span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>CopyDAO<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">PrintModel</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CopyDAO</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel1;</span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel2;</span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"CopyDAO.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"PrintModel.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CopyDAO</span></span></span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel1 &#123;</span><br><span class="line">PrintModel *model = [[PrintModel alloc] init];</span><br><span class="line">model.content = <span class="string">@"Hello world"</span>;</span><br><span class="line"><span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel2 &#123;</span><br><span class="line">PrintModel *model = [[PrintModel alloc] init];</span><br><span class="line">model.content = <span class="string">@"Where there is a will, there is a way"</span>;</span><br><span class="line"><span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (PrintModel *)getCopyPrintModel3 &#123;</span><br><span class="line">PrintModel *model = [[PrintModel alloc] init];</span><br><span class="line">model.content = <span class="string">@"We will, we will rock you"</span>;</span><br><span class="line"><span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<h3 id="四、结论分析"><a href="#四、结论分析" class="headerlink" title="四、结论分析"></a>四、结论分析</h3><ul>
-<li><p>分层架构设计最明显的特点就是，结构分层，且不可跨层访问，比如，应用层不能直接访问数据，仅有数据层能直接操作数据，也就是说，应用层必须先经由服务层访问数据层，再由数据层操作数据。这样有人就要问了，为什么要这么复杂？在应用层导入PrintModel.h，直接操作不就行了？</p>
-</li>
-<li><p>当然是行的，一样可以达到效果，但是，如果业务逻辑发生变动或新增逻辑，我们就必须修改或重写应用层，这是我们最不愿看到的，再或者，另一个模块也要用到类似的业务逻辑，比如有了一台高级打印机，在打印和复印功能上是一样的，那我们是不是要再复制一份普通打印机应用层的逻辑呢？这些都是很严重的问题。</p>
-</li>
-<li><p>从这里，我们不难看出，首先我们是将可见与不可见分层，再将公用的形成模块沉底，使每层间能相互独立，有清晰的依赖关系，这就是分层架构的目的。</p>
-</li>
-</ul>
-<h3 id="五、写在最后"><a href="#五、写在最后" class="headerlink" title="五、写在最后"></a>五、写在最后</h3><p>这样一个简单的案例肯定不能完成的覆盖分层架构，但已经明确的体现了分层架构的核心，在实际开发中，我们要根据实际的业务逻辑来定义服务层和数据层，应用层基本通用。看似简单，但需要大量的实战经验才能完美吸收，也希望读者能多动手。</p>
-<ul>
-<li>有需要源码的可以联系我~</li>
-</ul>
-
-
-                
-            </div>
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-
-
-                </div>
-            
-        </div>
-    </div>
-</article>
-
-    <!-- Footer -->
-    <hr />
-
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    
-
-                    
-
-                    
-                        <li>
-                            <a href="https://github.com/Leewini" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    
-
-                    
-
-                    
-                        <li>
-                            <a href="mailto:mail://1043481495@qq.com" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    
-
-                    
-                </ul>
-                <p class="copyright text-muted">&copy; 2018 Leewin<br></p>
-                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
-                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-    <!-- After footer scripts -->
-    
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Bootstrap -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Disqus Comments -->
-
-
-
-</body>
-
-</html>
