@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一、前言笔者最近一直忙于开发业务需求，频繁的使用着继承、分类，切身的体会到很多需求用这两种方案都可以解决，这就面临着幸福二选一的问题了！但越到后面，越能感觉到其明显的区别，于是有所感~ 二、需求简要iOS 时间选择器(UIDatePicker)大家都有用过吧，很方便对吧，那性别选择、省市区选择、付款方式选择等功能，我们如何实现类似的效果呢？用UIPickerView实现单选择功能，就能实现类似的用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS-关于继承、分类">
+<meta property="og:url" content="http://yoursite.com/2018/07/08/iOS-关于继承、分类/index.html">
+<meta property="og:site_name" content="Leewin&#39;s Blog">
+<meta property="og:description" content="一、前言笔者最近一直忙于开发业务需求，频繁的使用着继承、分类，切身的体会到很多需求用这两种方案都可以解决，这就面临着幸福二选一的问题了！但越到后面，越能感觉到其明显的区别，于是有所感~ 二、需求简要iOS 时间选择器(UIDatePicker)大家都有用过吧，很方便对吧，那性别选择、省市区选择、付款方式选择等功能，我们如何实现类似的效果呢？用UIPickerView实现单选择功能，就能实现类似的用">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6544436-5d5f2caa43dabf15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6544436-e3e6e9786b831f78.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-07-08T13:09:25.128Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS-关于继承、分类">
+<meta name="twitter:description" content="一、前言笔者最近一直忙于开发业务需求，频繁的使用着继承、分类，切身的体会到很多需求用这两种方案都可以解决，这就面临着幸福二选一的问题了！但越到后面，越能感觉到其明显的区别，于是有所感~ 二、需求简要iOS 时间选择器(UIDatePicker)大家都有用过吧，很方便对吧，那性别选择、省市区选择、付款方式选择等功能，我们如何实现类似的效果呢？用UIPickerView实现单选择功能，就能实现类似的用">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6544436-5d5f2caa43dabf15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/08/iOS-关于继承、分类/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>iOS-关于继承、分类 | Leewin's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leewin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Where there's a will, there's a way.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/08/iOS-关于继承、分类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leewin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leewin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS-关于继承、分类
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-08 21:08:19 / Modified: 21:09:25" itemprop="dateCreated datePublished" datetime="2018-07-08T21:08:19+08:00">2018-07-08</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>笔者最近一直忙于开发业务需求，频繁的使用着继承、分类，切身的体会到很多需求用这两种方案都可以解决，这就面临着幸福二选一的问题了！但越到后面，越能感觉到其明显的区别，于是有所感~<br><img src="https://upload-images.jianshu.io/upload_images/6544436-5d5f2caa43dabf15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="继承与分类"></p>
+<h2 id="二、需求简要"><a href="#二、需求简要" class="headerlink" title="二、需求简要"></a>二、需求简要</h2><p>iOS 时间选择器(UIDatePicker)大家都有用过吧，很方便对吧，那性别选择、省市区选择、付款方式选择等功能，我们如何实现类似的效果呢？用UIPickerView实现单选择功能，就能实现类似的用户体验。</p>
+<h2 id="三、应用场景"><a href="#三、应用场景" class="headerlink" title="三、应用场景"></a>三、应用场景</h2><p>笔者最近遇到的开发需求是产品的属性选择，比如我们现在要发起订单（我们可以类比一下淘宝），选择了佳得乐，这时候我们还要选择口味（蓝莓、鲜橙、哈密瓜等），然后还可以选择净含量等。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6544436-e3e6e9786b831f78.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="demo"></p>
+<h2 id="四、代码实现"><a href="#四、代码实现" class="headerlink" title="四、代码实现"></a>四、代码实现</h2><blockquote>
+<p>由于在实际开发中，通常都是与UITextField联合实现的，笔者就选择UITextField为最小颗粒度，对其进行处理。</p>
+</blockquote>
+<ul>
+<li>1.使用继承方案</li>
+</ul>
+<blockquote>
+<p>LYTextField.h<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">LYTextField</span> : <span class="title">UITextField</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSArray</span> *dataArr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>LYTextField.m<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"LYTextField.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">LYTextField</span> ()</span></span><br><span class="line">&lt;<span class="built_in">UIPickerViewDelegate</span>, <span class="built_in">UIPickerViewDataSource</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">UIPickerView</span> *pickerView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">LYTextField</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line"><span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">[<span class="keyword">self</span> configFoundation];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder &#123;</span><br><span class="line"><span class="keyword">self</span> = [<span class="keyword">super</span> initWithCoder:aDecoder];</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">[<span class="keyword">self</span> configFoundation];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithFrame:(<span class="built_in">CGRect</span>)frame &#123;</span><br><span class="line"><span class="keyword">self</span> = [<span class="keyword">super</span> initWithFrame:frame];</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">[<span class="keyword">self</span> configFoundation];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configFoundation &#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">CGFloat</span> screenWidth = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIView</span> *optionView = [[<span class="built_in">UIView</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, screenWidth, <span class="number">44</span>)];</span><br><span class="line">optionView.backgroundColor = [<span class="built_in">UIColor</span> orangeColor];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIButton</span> *cancelBtn = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</span><br><span class="line">[cancelBtn setFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">70</span>, <span class="number">44</span>)];</span><br><span class="line">[cancelBtn setTitle:<span class="string">@"取消"</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">[cancelBtn setTitleColor:[<span class="built_in">UIColor</span> blueColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">[cancelBtn.titleLabel setFont:[<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">17.0</span>]];</span><br><span class="line">[cancelBtn addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(onClickCancelBtn) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">[optionView addSubview:cancelBtn];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIButton</span> *finishBtn = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</span><br><span class="line">[finishBtn setFrame:<span class="built_in">CGRectMake</span>(screenWidth - <span class="number">70</span>, <span class="number">0</span>, <span class="number">70</span>, <span class="number">44</span>)];</span><br><span class="line">[finishBtn setTitle:<span class="string">@"完成"</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">[finishBtn setTitleColor:[<span class="built_in">UIColor</span> blueColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">[finishBtn.titleLabel setFont:[<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">17.0</span>]];</span><br><span class="line">[finishBtn addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(onClickFinishBtn) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">[optionView addSubview:finishBtn];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UILabel</span> *titleL = [[<span class="built_in">UILabel</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(screenWidth / <span class="number">2.0</span> - <span class="number">75.0</span>, <span class="number">0</span>, <span class="number">150</span>, <span class="number">44</span>)];</span><br><span class="line">titleL.textAlignment = <span class="built_in">NSTextAlignmentCenter</span>;</span><br><span class="line">titleL.text = <span class="string">@"请选择类型"</span>;</span><br><span class="line">[optionView addSubview:titleL];</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.inputAccessoryView = optionView;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIPickerView</span> *pickerView = [[<span class="built_in">UIPickerView</span> alloc] init];</span><br><span class="line">pickerView.dataSource = <span class="keyword">self</span>;</span><br><span class="line">pickerView.delegate = <span class="keyword">self</span>;</span><br><span class="line">pickerView.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line"><span class="keyword">self</span>.pickerView = pickerView;</span><br><span class="line"><span class="keyword">self</span>.inputView = pickerView;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onClickCancelBtn &#123;</span><br><span class="line">[<span class="keyword">self</span> resignFirstResponder];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onClickFinishBtn &#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSInteger</span> index = [<span class="keyword">self</span>.pickerView selectedRowInComponent:<span class="number">0</span>];</span><br><span class="line"><span class="keyword">if</span> (index &lt; <span class="keyword">self</span>.dataArr.count) &#123;</span><br><span class="line"><span class="keyword">self</span>.text = <span class="keyword">self</span>.dataArr[index];</span><br><span class="line">&#125;</span><br><span class="line">[<span class="keyword">self</span> resignFirstResponder];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Picker view data source &amp;&amp; delegate</span></span><br><span class="line">- (<span class="built_in">NSInteger</span>)numberOfComponentsInPickerView:(<span class="built_in">UIPickerView</span> *)pickerView &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSInteger</span>)pickerView:(<span class="built_in">UIPickerView</span> *)pickerView numberOfRowsInComponent:(<span class="built_in">NSInteger</span>)component &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>.dataArr.count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)pickerView:(<span class="built_in">UIPickerView</span> *)pickerView</span><br><span class="line">titleForRow:(<span class="built_in">NSInteger</span>)row</span><br><span class="line">forComponent:(<span class="built_in">NSInteger</span>)component &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (row &lt; <span class="keyword">self</span>.dataArr.count) &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>.dataArr[row];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">@""</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<ul>
+<li>2.使用分类方案<blockquote>
+<p>UITextField+Tool.h</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^DidSelectedBlock)(<span class="built_in">NSString</span> *value);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UITextField</span> (<span class="title">Tool</span>)</span></span><br><span class="line">&lt;<span class="built_in">UIPickerViewDelegate</span>, <span class="built_in">UIPickerViewDataSource</span>&gt;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configSigleChoiceWith:(<span class="built_in">NSArray</span> *)preData completion:(DidSelectedBlock)completion;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configValue:(<span class="built_in">NSString</span> *)value;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>UITextField+Tool.m<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"UITextField+Tool.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UITextField</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSArray</span> *choiceData;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) DidSelectedBlock didSelectedBlock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> KeyChoiceData = <span class="string">@"KeyChoiceData"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> KeyDidSelectedBlock = <span class="string">@"KeyDidSelectedBlock"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UITextField</span> (<span class="title">Tool</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSArray</span> *)choiceData &#123;</span><br><span class="line"><span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;KeyChoiceData);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setChoiceData:(<span class="built_in">NSArray</span> *)choiceData &#123;</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;KeyChoiceData, choiceData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (DidSelectedBlock)didSelectedBlock &#123;</span><br><span class="line"><span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;KeyDidSelectedBlock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setDidSelectedBlock:(DidSelectedBlock)didSelectedBlock &#123;</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;KeyDidSelectedBlock, didSelectedBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configSigleChoiceWith:(<span class="built_in">NSArray</span> *)preData completion:(DidSelectedBlock)completion &#123;</span><br><span class="line"><span class="keyword">self</span>.choiceData = [preData mutableCopy];</span><br><span class="line"><span class="keyword">self</span>.didSelectedBlock = completion;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> setSelectedList];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)configValue:(<span class="built_in">NSString</span> *)value &#123;</span><br><span class="line"><span class="keyword">self</span>.text = value;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.didSelectedBlock) &#123;</span><br><span class="line"><span class="keyword">self</span>.didSelectedBlock(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (value.length == <span class="number">0</span>) &#123;</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="keyword">self</span>.choiceData.count; i ++) &#123;</span><br><span class="line"><span class="built_in">NSString</span> *itemStr = <span class="keyword">self</span>.choiceData[I];</span><br><span class="line"><span class="keyword">if</span> ([value isEqualToString:itemStr]) &#123;</span><br><span class="line"><span class="built_in">UIPickerView</span> *pickerView = (<span class="built_in">UIPickerView</span> *)<span class="keyword">self</span>.inputView;</span><br><span class="line">[pickerView selectRow:i inComponent:<span class="number">0</span> animated:<span class="literal">YES</span>];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setSelectedList &#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">CGFloat</span> screenWidth = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIView</span> *optionView = [[<span class="built_in">UIView</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, screenWidth, <span class="number">44</span>)];</span><br><span class="line">optionView.backgroundColor = [<span class="built_in">UIColor</span> orangeColor];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIButton</span> *cancelBtn = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</span><br><span class="line">[cancelBtn setFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">70</span>, <span class="number">44</span>)];</span><br><span class="line">[cancelBtn setTitle:<span class="string">@"取消"</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">[cancelBtn setTitleColor:[<span class="built_in">UIColor</span> blueColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">[cancelBtn.titleLabel setFont:[<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">17.0</span>]];</span><br><span class="line">[cancelBtn addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(onClickCancelBtn) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">[optionView addSubview:cancelBtn];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIButton</span> *finishBtn = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</span><br><span class="line">[finishBtn setFrame:<span class="built_in">CGRectMake</span>(screenWidth - <span class="number">70</span>, <span class="number">0</span>, <span class="number">70</span>, <span class="number">44</span>)];</span><br><span class="line">[finishBtn setTitle:<span class="string">@"完成"</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">[finishBtn setTitleColor:[<span class="built_in">UIColor</span> blueColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">[finishBtn.titleLabel setFont:[<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">17.0</span>]];</span><br><span class="line">[finishBtn addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(onClickFinishBtn) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">[optionView addSubview:finishBtn];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UILabel</span> *titleL = [[<span class="built_in">UILabel</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(screenWidth / <span class="number">2.0</span> - <span class="number">75.0</span>, <span class="number">0</span>, <span class="number">150</span>, <span class="number">44</span>)];</span><br><span class="line">titleL.textAlignment = <span class="built_in">NSTextAlignmentCenter</span>;</span><br><span class="line">titleL.text = <span class="string">@"请选择类型"</span>;</span><br><span class="line">[optionView addSubview:titleL];</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.inputAccessoryView = optionView;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIPickerView</span> *pickerView = [[<span class="built_in">UIPickerView</span> alloc] init];</span><br><span class="line">pickerView.dataSource = <span class="keyword">self</span>;</span><br><span class="line">pickerView.delegate = <span class="keyword">self</span>;</span><br><span class="line">pickerView.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.inputView = pickerView;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Actions</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onClickCancelBtn &#123;</span><br><span class="line">[<span class="keyword">self</span> resignFirstResponder];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onClickFinishBtn &#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIPickerView</span> *pickerView = (<span class="built_in">UIPickerView</span> *)<span class="keyword">self</span>.inputView;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSInteger</span> index = [pickerView selectedRowInComponent:<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (index &lt; <span class="keyword">self</span>.choiceData.count) &#123;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> configValue:<span class="keyword">self</span>.choiceData[index]];</span><br><span class="line">&#125;</span><br><span class="line">[<span class="keyword">self</span> resignFirstResponder];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Picker view data source &amp;&amp; delegate</span></span><br><span class="line">- (<span class="built_in">NSInteger</span>)numberOfComponentsInPickerView:(<span class="built_in">UIPickerView</span> *)pickerView &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSInteger</span>)pickerView:(<span class="built_in">UIPickerView</span> *)pickerView numberOfRowsInComponent:(<span class="built_in">NSInteger</span>)component &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>.choiceData.count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)pickerView:(<span class="built_in">UIPickerView</span> *)pickerView</span><br><span class="line">titleForRow:(<span class="built_in">NSInteger</span>)row</span><br><span class="line">forComponent:(<span class="built_in">NSInteger</span>)component &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (row &lt; <span class="keyword">self</span>.choiceData.count) &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>.choiceData[row];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">@""</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<ul>
+<li>3.使用代码<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)configTextFieldDemo &#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">CGFloat</span> screenWidth = <span class="keyword">self</span>.view.bounds.size.width;</span><br><span class="line"></span><br><span class="line">LYTextField *textField1 = [[LYTextField alloc] init];</span><br><span class="line">textField1.bounds = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">200</span>, <span class="number">44</span>);</span><br><span class="line">textField1.borderStyle = <span class="built_in">UITextBorderStyleRoundedRect</span>;</span><br><span class="line">textField1.center = <span class="built_in">CGPointMake</span>(screenWidth/<span class="number">2</span>, <span class="number">100</span>);</span><br><span class="line">textField1.placeholder = <span class="string">@"请选择口味"</span>;</span><br><span class="line">textField1.dataArr = @[<span class="string">@"鲜橙"</span>, <span class="string">@"哈密瓜"</span>, <span class="string">@"蓝莓"</span>];</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:textField1];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UITextField</span> *textField2 = [[<span class="built_in">UITextField</span> alloc] init];</span><br><span class="line">textField2.bounds = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">200</span>, <span class="number">44</span>);</span><br><span class="line">textField2.borderStyle = <span class="built_in">UITextBorderStyleRoundedRect</span>;</span><br><span class="line">textField2.center = <span class="built_in">CGPointMake</span>(screenWidth/<span class="number">2</span>, <span class="number">200</span>);</span><br><span class="line">textField2.placeholder = <span class="string">@"请选择净含量"</span>;</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:textField2];</span><br><span class="line"><span class="built_in">NSArray</span> *dataArr = @[<span class="string">@"250 mL"</span>, <span class="string">@"500 mL"</span>, <span class="string">@"1000 mL"</span>];</span><br><span class="line">[textField2 configSigleChoiceWith:dataArr completion:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="五、写在最后"><a href="#五、写在最后" class="headerlink" title="五、写在最后"></a>五、写在最后</h2><ul>
+<li>上例中，分类明显的优势在于可以孤立存在，也是最干净的编码。其实就是在一个对象的基础上增加额外的功能形成另外一个对象。</li>
+<li>关于继承毫无疑问最大的优点是代码复用。但是很多时候继承也可能会被无止境的滥用，造成代码结构散乱，后期维护困难等，其中有可能带来最大的问题是高耦合，依赖性太强。</li>
+<li>实际开发中如果继承超过2层的时候，就要慎重了，因为这可能是滥用继承的开始。</li>
+<li>分类是一种平行的架构，相互独立存在，可移植性强，继承是纵向的架构，相互依赖，缺一个，整个架构就断层了。</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/09/React-Native中的动画过渡-译/" rel="next" title="React Native中的动画过渡! [译]">
+                <i class="fa fa-chevron-left"></i> React Native中的动画过渡! [译]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Leewin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、前言"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、需求简要"><span class="nav-number">2.</span> <span class="nav-text">二、需求简要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、应用场景"><span class="nav-number">3.</span> <span class="nav-text">三、应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、代码实现"><span class="nav-number">4.</span> <span class="nav-text">四、代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、写在最后"><span class="nav-number">5.</span> <span class="nav-text">五、写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leewin</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
